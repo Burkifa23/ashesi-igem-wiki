@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashesi iGEM | Cultured Meat</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <nav class="solid-nav">
+        <div class="nav-content">
+            <div class="logo">ASHESI <span>iGEM</span></div>
+            <div class="nav-links">
+                <a href="#problem">The Problem</a>
+                <a href="#science">The Science</a>
+                <a href="#impact">Human Practices</a>
+            </div>
+        </div>
+    </nav>
+
+    <header id="hero">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <div class="badge fade-in">Project 2025</div>
+                <h1 class="fade-in">Cultivating Protein. <br><span class="highlight">Redefining Meat.</span></h1>
+                <p class="fade-in">We are using cellular agriculture to engineer sustainable, slaughter-free meat tailored for the African continent. High-quality protein without the environmental cost of traditional livestock.</p>
+            </div>
+            <div class="hero-visual fade-in">
+                <svg viewBox="0 0 200 200" class="cell-svg">
+                    <circle class="petri-dish" cx="100" cy="100" r="90" fill="none" stroke="#8b0000" stroke-width="4"/>
+                    <circle class="cell main-cell" cx="100" cy="100" r="25" fill="#8b0000"/>
+                    <circle class="cell split-cell-1" cx="100" cy="100" r="25" fill="#8b0000"/>
+                    <circle class="cell split-cell-2" cx="100" cy="100" r="25" fill="#8b0000"/>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <section id="problem" class="bg-light">
+        <div class="container text-center">
+            <h2 class="section-title scroll-up">The Protein Deficit</h2>
+            <p class="section-desc scroll-up">As population growth accelerates across West Africa, traditional livestock farming is draining our water resources and accelerating deforestation. We need a localized, scalable biomanufacturing solution to ensure future food security.</p>
+        </div>
+    </section>
+
+    <section id="science">
+        <div class="container">
+            <h2 class="section-title scroll-up">Our Engineering Approach</h2>
+            <div class="grid-3">
+                
+                <div class="card scroll-up">
+                    <div class="card-number">01</div>
+                    <h3>Immortalized Cell Lines</h3>
+                    <p>We are engineering local bovine and poultry cell lines to proliferate indefinitely in suspension, removing the need for continuous animal biopsies and lowering long-term production costs.</p>
+                </div>
+
+                <div class="card scroll-up">
+                    <div class="card-number">02</div>
+                    <h3>Plant-Based Scaffolding</h3>
+                    <p>Cultured cells need a structure to form textured meat. We are utilizing abundant local crops like cassava and yam starch to create edible, 3D bio-printed scaffolds for the cells to attach to.</p>
+                </div>
+
+                <div class="card scroll-up">
+                    <div class="card-number">03</div>
+                    <h3>Serum-Free Media</h3>
+                    <p>Replacing controversial Fetal Bovine Serum (FBS) with a cost-effective, recombinantly produced growth media tailored specifically for our engineered cell lines.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="impact" class="bg-light border-top">
+        <div class="container flex-split">
+            <div class="split-text scroll-up">
+                <h2 class="section-title text-left">Integrated Human Practices</h2>
+                <p>Technology alone cannot change diets. Our project is deeply integrated with local stakeholders to ensure cultural acceptance and economic viability.</p>
+                <ul class="impact-list">
+                    <li><strong>Farmer Integration:</strong> Exploring how traditional farmers can pivot to supplying agricultural inputs for bio-scaffolding.</li>
+                    <li><strong>Consumer Perception:</strong> Conducting comprehensive surveys across Ghana to understand the ethical and culinary acceptance of lab-grown meat.</li>
+                    <li><strong>Regulatory Frameworks:</strong> Partnering with local food safety authorities to draft the first guidelines for cellular agriculture in West Africa.</li>
+                </ul>
+            </div>
+            <div class="split-box scroll-up">
+                <h3>"Innovation must be rooted in local reality."</h3>
+                <p>- The Ashesi iGEM Philosophy</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
