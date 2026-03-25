@@ -76,3 +76,77 @@ const tlMicro = gsap.timeline({
 tlMicro.to(".layer-earth", { scale: 2, opacity: 0, rotation: 45, transformOrigin: "center center" })
        .to(".path-micro", { opacity: 1, strokeDashoffset: 0 }, "<")
        .to(".core-node", { opacity: 1, scale: 1.5, transformOrigin: "center" }, "-=0.2");
+
+
+// --- PHASE 2: INFRASTRUCTURE STRESS TEST ---
+
+const stressSection = document.querySelector('.stress-section');
+const velocityGrid = document.querySelector('.velocity-grid');
+
+// 1. StringSpotlight Simulation (Cursor Tracking)
+stressSection.addEventListener('mousemove', (e) => {
+    const rect = stressSection.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Update CSS variables for the radial gradient mask
+    gsap.to(stressSection, {
+        '--mouse-x': `${x}px`,
+        '--mouse-y': `${y}px`,
+        duration: 0.3, // Adds a slight smooth trailing effect
+        ease: "power2.out"
+    });
+});
+
+// 2. StringLerp Simulation (Scroll Velocity Tracking & Glitch)
+// We use GSAP's built-in velocity tracker to alter the CSS grid variables
+ScrollTrigger.create({
+    trigger: ".stress-section",
+    start: "top bottom",
+    end: "bottom top",
+    onUpdate: (self) => {
+        // Get the current scroll velocity
+        let velocity = self.getVelocity();
+        
+        // Clamp the velocity so it doesn't break the layout if they scroll insanely fast
+        let clampedVelocity = gsap.utils.clamp(-3000, 3000, velocity);
+        
+        // Map the velocity to a skew angle (e.g., max 5 degrees)
+        let skewAmount = (clampedVelocity / 3000) * 5;
+        // Map velocity to RGB split effect (e.g., max 15px)
+        let rgbSplit = (clampedVelocity / 3000) * 15;
+        
+        gsap.to(velocityGrid, {
+            '--skew-y': `${skewAmount}deg`,
+            '--rgb-split': `${rgbSplit}px`,
+            '--scale': 1 + Math.abs(clampedVelocity / 15000), // Slight zoom on fast scroll
+            duration: 0.1,
+            overwrite: true
+        });
+    }
+});
+
+// Reset the glitch back to normal when scrolling stops
+ScrollTrigger.addEventListener("scrollEnd", () => {
+    gsap.to(velocityGrid, {
+        '--skew-y': `0deg`,
+        '--rgb-split': `0px`,
+        '--scale': 1,
+        duration: 0.5,
+        ease: "elastic.out(1, 0.3)" // Snaps back like a rubber band
+    });
+});
+
+// 3. Unveil Data Cards on Scroll
+gsap.from(".data-card", {
+    scrollTrigger: {
+        trigger: ".data-dashboard",
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+    },
+    y: 40,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: "power3.out"
+});
