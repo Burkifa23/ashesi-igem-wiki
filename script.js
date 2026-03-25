@@ -688,3 +688,118 @@ if (blueprintSection) {
         );
     }
 }
+
+
+// ==========================================
+// Z. SAFETY PAGE: BIOCONTAINMENT LOGIC
+// ==========================================
+const containmentSection = document.querySelector('.containment-section');
+
+if (containmentSection) {
+    // 1. SCROLLYTELLING: THE SECURITY RINGS
+    const layers = [
+        { trigger: '#layer-1', ring: '#ring-1', lock: '#lock-1', rot: 180 },
+        { trigger: '#layer-2', ring: '#ring-2', lock: '#lock-2', rot: -90 },
+        { trigger: '#layer-3', ring: '#ring-3', lock: '#lock-3', rot: 270 }
+    ];
+
+    layers.forEach((layer, index) => {
+        // Highlight the text on the left
+        ScrollTrigger.create({
+            trigger: layer.trigger,
+            start: "top 50%",
+            end: "bottom 50%",
+            toggleClass: "active-layer"
+        });
+
+        // Spin and lock the rings on the right
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: layer.trigger,
+                start: "top 80%",
+                end: "center center",
+                scrub: 1
+            }
+        });
+
+        tl.to(layer.ring, { rotation: layer.rot, stroke: "#111", duration: 1 })
+          .to(layer.lock, { opacity: 1, rotation: layer.rot, duration: 0.5 }, "-=0.5");
+    });
+
+    // When all 3 rings lock, change the core status
+    ScrollTrigger.create({
+        trigger: '#layer-3',
+        start: "center center",
+        onEnter: () => {
+            gsap.to('#secure-core', { fill: "rgba(0, 255, 204, 0.2)", stroke: "#00ffcc" });
+            document.getElementById('core-status').innerText = "SECURED";
+            document.getElementById('core-status').setAttribute('fill', '#00ffcc');
+        },
+        onLeaveBack: () => {
+            gsap.to('#secure-core', { fill: "#111", stroke: "#333" });
+            document.getElementById('core-status').innerText = "UNSECURED";
+            document.getElementById('core-status').setAttribute('fill', '#666');
+        }
+    });
+
+    // 2. INTERACTIVE CLIMAX: THE HOLD-TO-ARM BUTTON
+    const btn = document.getElementById('override-btn');
+    const fill = document.getElementById('arm-fill');
+    const terminal = document.querySelector('.breach-terminal-section');
+    
+    let pressTimer;
+    let progressTween;
+    let isResolved = false;
+
+    // Start filling the bar when mouse is pressed down
+    const startPress = () => {
+        if (isResolved) return;
+        
+        // GSAP tween to fill the bar over 2.5 seconds
+        progressTween = gsap.to(fill, {
+            width: "100%",
+            duration: 2.5,
+            ease: "power1.inOut",
+            onComplete: triggerLockdown // If it reaches 100%, trigger the climax
+        });
+        
+        // Shake the button to simulate tension
+        gsap.to(btn, { x: () => gsap.utils.random(-3, 3), y: () => gsap.utils.random(-3, 3), repeat: -1, yoyo: true, duration: 0.05 });
+    };
+
+    // Reset if they let go too early
+    const cancelPress = () => {
+        if (isResolved) return;
+        if (progressTween) progressTween.kill();
+        gsap.killTweensOf(btn);
+        gsap.set(btn, { x: 0, y: 0 }); // Reset position
+        gsap.to(fill, { width: "0%", duration: 0.5, ease: "power2.out" }); // Drain the bar
+    };
+
+    // The Climax Animation
+    const triggerLockdown = () => {
+        isResolved = true;
+        gsap.killTweensOf(btn);
+        gsap.set(btn, { x: 0, y: 0 });
+        
+        // Update Terminal UI
+        terminal.classList.add('resolved');
+        document.getElementById('breach-title').innerText = "THREAT NEUTRALIZED.";
+        document.getElementById('breach-desc').innerText = "Apoptosis protocol executed successfully. Cellular mass has been lysed. Environmental integrity maintained.";
+        btn.innerText = "[ PROTOCOL COMPLETE ]";
+        gsap.to(fill, { background: "#00ffcc", duration: 0.3 });
+        
+        // Flash the screen white, then settle into dark cyan
+        gsap.fromTo(terminal, 
+            { backgroundColor: "#ffffff" }, 
+            { backgroundColor: "#020508", duration: 1.5, ease: "expo.out" }
+        );
+    };
+
+    // Event Listeners (Mouse and Touch for mobile)
+    btn.addEventListener('mousedown', startPress);
+    btn.addEventListener('mouseup', cancelPress);
+    btn.addEventListener('mouseleave', cancelPress);
+    btn.addEventListener('touchstart', (e) => { e.preventDefault(); startPress(); });
+    btn.addEventListener('touchend', cancelPress);
+}

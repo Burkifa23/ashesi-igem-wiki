@@ -592,3 +592,42 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 16px; height:
 .annotation-text { position: absolute; top: 20px; right: 0; font-family: 'Space Mono', monospace; font-size: 0.9rem; color: white; background: rgba(0,0,0,0.8); padding: 5px 10px; border: 1px solid #444; }
 
 
+/* --- SAFETY PAGE: CONTAINMENT & BREACH --- */
+
+.containment-section { display: flex; position: relative; background: #010101; border-top: 1px dashed #333; }
+
+/* Left Text Constraints */
+.containment-text { width: 45%; padding: 5rem 5% 10rem 10%; }
+.sec-layer { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; opacity: 0.3; transition: opacity 0.5s; }
+.sec-layer.active-layer { opacity: 1; }
+.sec-layer h2 { font-size: 3.5rem; color: white; margin-bottom: 1.5rem; line-height: 1.1; }
+.sec-layer p { font-size: 1.15rem; color: #a0a0b0; max-width: 550px; line-height: 1.8; margin-bottom: 2rem; }
+
+/* Right Visual Constraints */
+.containment-visual { width: 55%; height: 100vh; position: sticky; top: 0; display: flex; justify-content: center; align-items: center; }
+#security-rings { width: 600px; height: 600px; }
+
+/* The Rings */
+.sec-ring { transform-origin: center; }
+.sec-lock { transform-origin: center; filter: drop-shadow(0 0 10px rgba(0,255,204,0.5)); }
+
+/* Breach Terminal Section */
+.breach-terminal-section { min-height: 100vh; background: #050002; display: flex; align-items: center; justify-content: center; padding: 5rem 5%; transition: background 0.5s; border-top: 1px solid #330011; }
+.terminal-container { border: 1px solid #ff0055; background: rgba(20, 0, 5, 0.8); padding: 3rem; border-radius: 8px; max-width: 900px; width: 100%; box-shadow: 0 0 40px rgba(255, 0, 85, 0.1); position: relative; overflow: hidden; }
+
+.terminal-header { display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 0.85rem; border-bottom: 1px dashed #ff0055; padding-bottom: 1rem; margin-bottom: 2rem; color: #ff0055; }
+.warning-text { font-weight: bold; letter-spacing: 1px; }
+
+/* Interactive Hold Button */
+.arm-mechanism { margin-top: 4rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.glitch-btn { background: transparent; color: #ff0055; border: 2px solid #ff0055; padding: 1.5rem 3rem; font-family: 'Space Mono', monospace; font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; cursor: pointer; border-radius: 4px; transition: all 0.2s; user-select: none; }
+.glitch-btn:hover { background: rgba(255, 0, 85, 0.1); box-shadow: 0 0 20px rgba(255,0,85,0.4); }
+.glitch-btn:active { transform: scale(0.98); }
+
+.progress-bar-container { width: 100%; max-width: 400px; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+#arm-fill { width: 0%; height: 100%; background: #ff0055; }
+
+/* Resolved State Classes (Applied by JS) */
+.resolved .terminal-container { border-color: #00ffcc; background: rgba(0, 20, 15, 0.8); box-shadow: 0 0 40px rgba(0, 255, 204, 0.1); }
+.resolved .terminal-header, .resolved #breach-title { color: #00ffcc !important; border-bottom-color: #00ffcc; }
+.resolved .glitch-btn { border-color: #00ffcc; color: #00ffcc; pointer-events: none; }
