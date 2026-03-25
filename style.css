@@ -197,3 +197,119 @@ h1, h2 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -1.5px; }
 .parallax-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 1rem; color: white; }
 .card-tag { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--alert); margin-bottom: 1.5rem; letter-spacing: 1px; }
 .parallax-card p { color: #a0a0b0; font-size: 0.95rem; line-height: 1.7; }
+
+
+/* --- GLOBAL TRANSITIONS & TELEMETRY --- */
+
+/* Page Transition Loader */
+#global-transition {
+    position: fixed; inset: 0; background: #020203; z-index: 99999;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    font-family: 'Space Mono', monospace; pointer-events: auto;
+}
+.transition-text { color: var(--accent); margin-bottom: 1rem; font-size: 0.8rem; letter-spacing: 2px; }
+.transition-bar { width: 200px; height: 1px; background: #333; overflow: hidden; }
+.transition-fill { width: 0%; height: 100%; background: var(--accent); }
+
+/* Update Telemetry HUD to hold both stats */
+#os-telemetry {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 9000;
+    display: flex; gap: 2rem; pointer-events: none;
+    background: rgba(5, 5, 8, 0.85); padding: 0.8rem 1.5rem; 
+    border: 1px solid var(--border); border-radius: 4px; backdrop-filter: blur(8px);
+}
+.telemetry-stat { display: flex; flex-direction: column; align-items: flex-end; }
+.stat-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--text-muted); letter-spacing: 1px; }
+.stat-value { font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--accent); font-weight: bold; }
+.stat-value.drop { color: var(--alert); }
+
+
+/* --- ENGINEERING PAGE: HORIZONTAL SCROLL --- */
+.eng-hero { border-bottom: none; }
+
+.horizontal-section {
+    /* Hide overflow so the panels don't break the vertical scroll */
+    overflow: hidden; 
+    background: #020203;
+    /* We don't set height here; GSAP handles the pinning */
+}
+
+.horizontal-container {
+    display: flex;
+    width: 300vw; /* 3 panels = 300% of viewport width */
+    height: 100vh;
+}
+
+.b-panel {
+    flex: 0 0 100vw; /* THIS is the magic line that makes horizontal scroll work */
+    height: 100vh;
+    padding: 0 10%;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center;
+    border-right: 1px dashed #333;
+}
+
+.panel-header { display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 0.85rem; margin-bottom: 2rem; border-bottom: 1px solid #333; padding-bottom: 1rem; }
+.b-panel h2 { font-size: 4.5rem; letter-spacing: -2px; margin-bottom: 1.5rem; color: white; }
+.b-panel p { font-size: 1.3rem; line-height: 1.7; color: #a0a0b0; max-width: 800px; margin-bottom: 3rem; }
+
+.tech-data { display: flex; gap: 3rem; font-family: 'Space Mono', monospace; font-size: 0.9rem; }
+.tech-data span { padding: 0.5rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid #333; border-radius: 4px; }
+
+/* Status Colors */
+.error-panel .status { color: var(--alert); }
+.error-panel .tech-data span { border-color: rgba(255, 0, 85, 0.3); color: var(--alert); }
+
+.warn-panel .status { color: #ffaa00; }
+.warn-panel .tech-data span { border-color: rgba(255, 170, 0, 0.3); color: #ffaa00; }
+
+.success-panel .status { color: #00ffcc; }
+.success-panel .tech-data span { border-color: rgba(0, 255, 204, 0.3); color: #00ffcc; }
+
+/* Math Section */
+.math-section { padding: 8rem 5%; background: #050508; border-top: 1px solid var(--border); }
+.katex-container { font-size: 1.8rem; text-align: center; margin-top: 4rem; padding: 3rem; background: rgba(0, 255, 204, 0.03); border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 12px; }
+
+
+
+/* --- INTERACTIVE SIMULATOR STYLES --- */
+.simulator-section { padding: 5rem 10%; background: #020203; }
+.sim-container { border: 1px solid #333; border-radius: 8px; background: rgba(10, 10, 15, 0.8); padding: 2rem; font-family: 'Space Mono', monospace; }
+.sim-header { display: flex; justify-content: space-between; border-bottom: 1px dashed #333; padding-bottom: 1rem; margin-bottom: 2rem; color: var(--accent); font-size: 0.8rem; }
+
+.sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+
+/* Sliders */
+.control-group { margin-bottom: 2.5rem; position: relative; }
+.control-group label { display: block; color: white; margin-bottom: 1rem; font-size: 0.9rem; }
+.control-group label span { color: var(--accent); }
+input[type=range] { width: 100%; appearance: none; background: #222; height: 4px; border-radius: 2px; outline: none; }
+input[type=range]::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; background: var(--accent); cursor: ew-resize; border-radius: 50%; }
+.threshold-marker { position: absolute; bottom: -20px; font-size: 0.65rem; color: #666; }
+
+/* Transfer Function Bar */
+.transfer-function-output label { display: block; color: white; margin-bottom: 0.5rem; font-size: 0.8rem; }
+.progress-track { width: 100%; height: 8px; background: #222; border-radius: 4px; overflow: hidden; }
+.progress-fill { width: 0%; height: 100%; background: #39ff14; transition: width 0.1s linear; }
+
+/* Nodes */
+.sim-visuals { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.node-row { display: flex; gap: 2rem; width: 100%; justify-content: center; }
+.circuit-node { width: 100px; height: 100px; border: 2px solid #333; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s; background: #050508; }
+.node-name { color: white; font-weight: bold; font-size: 1.2rem; margin-bottom: 0.2rem; }
+.node-state { color: #666; font-size: 0.7rem; }
+
+.hexamer-connection { color: #444; font-size: 0.7rem; margin: 1.5rem 0; letter-spacing: 2px; }
+
+.output-node { width: 140px; height: 140px; border-radius: 8px; border-color: #333; }
+
+/* Active States applied via JS */
+.circuit-node.active-hrpr { border-color: #00ffcc; box-shadow: 0 0 20px rgba(0,255,204,0.3); }
+.circuit-node.active-hrpr .node-state { color: #00ffcc; }
+
+.circuit-node.active-hrps { border-color: #ff0055; box-shadow: 0 0 20px rgba(255,0,85,0.3); }
+.circuit-node.active-hrps .node-state { color: #ff0055; }
+
+.circuit-node.active-gfp { border-color: #39ff14; background: rgba(57, 255, 20, 0.1); box-shadow: 0 0 40px rgba(57,255,20,0.4); }
+.circuit-node.active-gfp .node-state { color: #39ff14; }

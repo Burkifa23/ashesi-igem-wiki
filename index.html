@@ -23,11 +23,30 @@
     </script>
 </head>
 <body>
+    <div id="global-transition">
+        <div class="transition-text">ROUTING <span class="blink">...</span></div>
+        <div class="transition-bar"><div class="transition-fill"></div></div>
+    </div>
+
+    <div id="os-telemetry">
+        <div class="telemetry-stat">
+            <span class="stat-label">SCROLL</span>
+            <span id="scroll-percent" class="stat-value">00%</span>
+        </div>
+        <div class="telemetry-stat">
+            <span class="stat-label">SYS.FPS</span>
+            <span id="fps-counter" class="stat-value">60</span>
+        </div>
+    </div>
 
     <div id="glossary-tooltip"></div>
 
     <nav class="glass-nav">
         <div class="logo">ASHESI <span>iGEM_25</span></div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="engineering.html" class="nav-link">Engineering</a>
+        </div>
     </nav>
 
     <header class="hero">

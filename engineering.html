@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering | Bio-Foundry OS</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+</head>
+<body>
+
+    <div id="os-cursor"></div>
+    <div id="os-cursor-trail"></div>
+
+    <div id="global-transition">
+        <div class="transition-text">ROUTING <span class="blink">...</span></div>
+        <div class="transition-bar"><div class="transition-fill"></div></div>
+    </div>
+
+    <div id="os-telemetry">
+        <div class="telemetry-stat">
+            <span class="stat-label">SCROLL</span>
+            <span id="scroll-percent" class="stat-value">00%</span>
+        </div>
+        <div class="telemetry-stat">
+            <span class="stat-label">SYS.FPS</span>
+            <span id="fps-counter" class="stat-value">60</span>
+        </div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="logo">ASHESI <span>iGEM_25</span></div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="engineering.html" class="nav-link">Engineering</a>
+        </div>
+    </nav>
+
+    <header class="hero eng-hero">
+        <div class="badge alert-badge fade-in">CYCLE LOGS</div>
+        <div class="text-mask"><h1 class="flux-text">Build. Test.</h1></div>
+        <div class="text-mask"><h1 class="flux-text highlight">Learn. Iterate.</h1></div>
+        <p class="subtitle fade-in">Engineering orthogonal $\sigma^{54}$-dependent logic gates for extreme infrastructural resilience.</p>
+    </header>
+
+    <section class="horizontal-section" id="btl-cycle">
+        <div class="horizontal-container">
+            
+            <div class="b-panel error-panel">
+                <div class="panel-header">
+                    <span class="version">v1.0 // STANDARD REPRESSORS</span>
+                    <span class="status fail">[ TEST FAILED ]</span>
+                </div>
+                <h2>The Leaky Circuit</h2>
+                <p>Initial designs utilized standard $\sigma^{70}$-dependent repressors (LacI/TetR) on high-copy plasmids. Under nominal conditions, the logic gate functioned. However, during simulated "Dumsor" voltage sags, the rapid onset of mixed-acid fermentation altered the cellular pH, causing massive allosteric misfolding. The gate "leaked," actuating the failsafe when inputs were FALSE.</p>
+                <div class="tech-data">
+                    <span>CROSSTALK: HIGH</span>
+                    <span>METABOLIC LOAD: FATAL</span>
+                </div>
+            </div>
+
+            <div class="b-panel warn-panel">
+                <div class="panel-header">
+                    <span class="version">v2.0 // COPY NUMBER TUNING</span>
+                    <span class="status warn">[ TEST INCONCLUSIVE ]</span>
+                </div>
+                <h2>The Short-Board Effect</h2>
+                <p>We pivoted to orthogonal systems, isolating the sensor module on a medium-copy pSB3K3 plasmid and the output on a low-copy pSC101. While this eliminated the high metabolic load, stochastic thermodynamic imbalances between the two monomer halves prevented the gate from firing sharply. We needed a highly cooperative, multi-variable binding mechanism.</p>
+                <div class="tech-data">
+                    <span>LEAKINESS: < 2%</span>
+                    <span>COOPERATIVITY: LOW</span>
+                </div>
+            </div>
+
+            <div class="b-panel success-panel">
+                <div class="panel-header">
+                    <span class="version">v3.0 // ORTHOGONAL $\sigma^{54}$</span>
+                    <span class="status pass">[ TEST PASSED ]</span>
+                </div>
+                <h2>The HrpR/HrpS Hexamer</h2>
+                <p>The ultimate solution. We refactored the Type III secretion system from <em>Pseudomonas syringae</em>. Neither HrpR nor HrpS can actuate transcription alone. Only when both are present do they assemble into a massive hetero-hexameric Enhancer-Binding Protein complex, hydrolyzing ATP to open the closed $\sigma^{54}$-RNA polymerase complex. Zero crosstalk. Absolute digital logic.</p>
+                <div class="tech-data">
+                    <span>COOPERATIVITY: EXTREME</span>
+                    <span>RESOLUTION: DIGITAL</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="math-section">
+        <div class="text-mask"><h2 class="scroll-reveal center-text">Transfer Functions</h2></div>
+        <p class="tech-lead center-text">
+            To parameterize the hetero-hexameric activation, we mapped the steady-state input-output response using a multi-variable Hill equation. The coefficients ($n_R = 2.381$, $n_S = 1.835$) confirm the mathematically sharp, digital-like transition required to survive transcriptomic chaos.
+        </p>
+        
+        <div class="katex-container">
+            $$ [G] = [G]_{max} \left( \frac{[R]^{n_R}}{K_R^{n_R} + [R]^{n_R}} \right) \left( \frac{[S]^{n_S}}{K_S^{n_S} + [S]^{n_S}} \right) $$
+        </div>
+    </section>
+
+    <section class="simulator-section">
+        <div class="sim-container">
+            <div class="sim-header">
+                <h3>LIVE TELEMETRY // BIO-COMPUTER TERMINAL</h3>
+                <span class="blink">[ SYSTEM READY ]</span>
+            </div>
+            
+            <div class="sim-grid">
+                <div class="sim-controls">
+                    <div class="control-group">
+                        <label>INPUT A: Bioavailable Arsenic (<span id="ars-val">0</span> ppb)</label>
+                        <input type="range" id="ars-slider" min="0" max="100" value="0">
+                        <div class="threshold-marker" style="left: 10%;">| 10ppb Trigger</div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>INPUT B: Bioreactor Temp (<span id="temp-val">25</span> °C)</label>
+                        <input type="range" id="temp-slider" min="25" max="45" value="25">
+                        <div class="threshold-marker" style="left: 60%;">| 37°C Trigger</div>
+                    </div>
+
+                    <div class="transfer-function-output">
+                        <label>Hill Equation Output: <span id="gfp-val">0.00</span>%</label>
+                        <div class="progress-track"><div id="gfp-fill" class="progress-fill"></div></div>
+                    </div>
+                </div>
+
+                <div class="sim-visuals">
+                    <div class="node-row">
+                        <div id="node-hrpr" class="circuit-node">
+                            <span class="node-name">HrpR</span>
+                            <span class="node-state">OFF</span>
+                        </div>
+                        <div id="node-hrps" class="circuit-node">
+                            <span class="node-name">HrpS</span>
+                            <span class="node-state">OFF</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hexamer-connection">↓ Hexamer Assembly ↓</div>
+                    
+                    <div id="node-gfp" class="circuit-node output-node">
+                        <span class="node-name">ACTUATION (GFP)</span>
+                        <span class="node-state">OFF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-footer" style="padding: 10rem 5%; text-align: center; background: #020203; border-top: 1px dashed #333;">
+        <div class="badge" style="margin: 0 auto 2rem auto;">CYCLE COMPLETE</div>
+        <h2 style="font-size: 3rem; margin-bottom: 2rem;">The Real-World Stress Test.</h2>
+        <p style="color: #a0a0b0; max-width: 600px; margin: 0 auto 4rem auto;">
+            The HrpR/HrpS logic gate is mathematically sound. But biological computing means nothing if it cannot survive the physical realities of the West African electrical grid.
+        </p>
+        <a href="human-practices.html" class="nav-link" style="display: inline-block; padding: 1rem 3rem; border: 1px solid #00ffcc; color: #00ffcc; text-decoration: none; font-family: 'Space Mono', monospace; transition: background 0.3s;">
+            INITIALIZE HUMAN PRACTICES ↗
+        </a>
+    </section>
+
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
