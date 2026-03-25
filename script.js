@@ -1,3 +1,19 @@
+// --- 0. INITIALIZE LENIS SMOOTH SCROLLING ---
+const lenis = new Lenis({
+    duration: 1.2, // Controls the "weight" of the scroll momentum
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Premium smooth easing curve
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+});
+
+// Sync Lenis with GSAP ScrollTrigger
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => { lenis.raf(time * 1000) });
+gsap.ticker.lagSmoothing(0);
+
 gsap.registerPlugin(ScrollTrigger);
 
 // 1. HERO LOAD ANIMATION (Framer TextFlux Simulation)
@@ -242,4 +258,40 @@ document.getElementById('node-b').parentElement.addEventListener('click', () => 
         gsap.to(lineB, { stroke: "#333", duration: 0.3 });
     }
     evaluateGate();
+});
+
+// --- PHASE 4: MATH GRAPH & PARALLAX ---
+
+// 1. Draw the Hill Equation Curve on Scroll
+const graphTl = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".model-container",
+        start: "top 60%",
+        end: "center center",
+        scrub: 1 // Ties drawing speed to scroll speed
+    }
+});
+
+graphTl.to(".hill-curve", { strokeDashoffset: 0, ease: "none" })
+       .to(".operating-point", { opacity: 1, scale: 1, ease: "back.out(2)" }, "-=0.2");
+
+// 2. StringParallax Simulation for Hardware Cards
+// Amplified Parallax for Hardware Cards
+document.querySelectorAll('.parallax-card').forEach(card => {
+    // Increase the multiplier to make the distance traveled much larger
+    const speed = parseFloat(card.getAttribute('data-speed')) * 2.5; 
+    
+    gsap.fromTo(card, 
+        { y: 150 * speed }, // Start much lower
+        { 
+            y: -150 * speed, // End much higher
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".parallax-track",
+                start: "top bottom", // Start animating when the track enters the bottom of the screen
+                end: "bottom top",   // Stop when it leaves the top
+                scrub: true // Tied flawlessly to Lenis smooth scroll
+            }
+        }
+    );
 });

@@ -8,6 +8,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });">
+    </script>
 </head>
 <body>
 
@@ -164,6 +177,67 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <section class="math-hardware-section" id="architecture">
+        
+        <div class="model-container">
+            <div class="model-text">
+                <div class="badge">04 // SYSTEM MODELING</div>
+                <div class="text-mask"><h2 class="scroll-reveal">Transfer Functions</h2></div>
+                <p class="tech-lead">
+                    To ensure the Bio-Foundry does not falsely actuate during transcriptomic chaos, the HrpR/HrpS gate must operate digitally. We parameterized the steady-state input-output response using a multi-variable Hill equation.
+                </p>
+                <div class="equation-box">
+                    [G] = [G]max * ( [R]^nR / (Kr^nR + [R]^nR) ) * ( [S]^nS / (Ks^nS + [S]^nS) )
+                </div>
+                <ul class="parameter-list">
+                    <li><strong>Coefficients:</strong> nR = 2.381, nS = 1.835</li>
+                    <li><strong>Constants:</strong> Kr = 206.1, Ks = 3135</li>
+                    <li><strong>Result:</strong> The Hill coefficients (>1) confirm highly cooperative binding, creating a sharp, digital transition from OFF to ON, eliminating noisy intermediate states.</li>
+                </ul>
+            </div>
+            
+            <div class="model-visual">
+                <div class="graph-axes">
+                    <span class="y-label">Fluorescence (GFP)</span>
+                    <span class="x-label">Input Concentration</span>
+                    <svg viewBox="0 0 400 300" class="hill-graph">
+                        <path class="graph-grid" d="M50 250 L350 250 M50 250 L50 50" fill="none" stroke="#333" stroke-width="2"/>
+                        <path class="hill-curve" d="M50 245 C 150 245, 200 60, 350 55" fill="none" stroke="#00ffcc" stroke-width="4" stroke-linecap="round"/>
+                        <circle class="operating-point" cx="200" cy="152.5" r="6" fill="#ff0055"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="solutions-container">
+            <div class="text-mask"><h2 class="scroll-reveal center-text">Hardware Imperatives</h2></div>
+            <p class="tech-lead center-text">
+                Translating aerospace In-Situ Resource Utilization (ISRU) to West African grid instability requires abandoning traditional CSTR bioreactors and engineering metabolic shock absorbers.
+            </p>
+
+            <div class="parallax-track">
+                <div class="parallax-card" data-speed="0.8">
+                    <h3>01. FEP Bioreactor Bags</h3>
+                    <div class="card-tag">REF: ISS BioNutrients</div>
+                    <p>Standard bioreactors fail instantly without power. We adopt NASA's Fluorinated Ethylene Propylene (FEP) flexible bags. Their exceptionally high gas permeability maintains passive oxygen transfer during blackout-induced impeller failures.</p>
+                </div>
+
+                <div class="parallax-card" data-speed="1.1">
+                    <h3>02. ROS Scavenging</h3>
+                    <div class="card-tag">REF: Re-Oxygenation Crisis</div>
+                    <p>When the grid recovers, the sudden blast of $O_2$ into a hypoxic culture generates lethal superoxide anions. Our chassis constitutively overexpresses <em>sodA</em> and <em>katG</em> to neutralize the Fenton reaction and survive the transient.</p>
+                </div>
+
+                <div class="parallax-card" data-speed="0.9">
+                    <h3>03. Low-Copy Actuation</h3>
+                    <div class="card-tag">REF: pSC101 Backbone</div>
+                    <p>Deploying the logic output on a high-copy plasmid leads to leaky actuation during voltage sags. We isolate the output module on a strictly low-copy (pSC101) plasmid, ensuring absolute silence until strictly commanded.</p>
+                </div>
+            </div>
+        </div>
+
     </section>
 
     <script src="script.js"></script>

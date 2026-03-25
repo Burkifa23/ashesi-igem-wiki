@@ -164,3 +164,36 @@ h1, h2 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -1.5px; }
 .output-node.active { border-color: #39ff14; background: rgba(57, 255, 20, 0.15); box-shadow: 0 0 40px rgba(57,255,20,0.4); }
 .output-node.active .node-title { color: #39ff14; }
 .output-node.active .node-val { color: #39ff14; }
+
+/* --- PHASE 4: MODELING & HARDWARE --- */
+.math-hardware-section { background-color: #020203; padding: 8rem 5%; border-top: 1px dashed #333; }
+
+/* The Math Model Layout */
+.model-container { display: flex; max-width: 1400px; margin: 0 auto 10rem auto; gap: 4rem; align-items: center; }
+.model-text { width: 50%; }
+.equation-box { background: rgba(0, 255, 204, 0.05); border: 1px solid var(--accent); padding: 1.5rem; font-family: 'Space Mono', monospace; font-size: 1.1rem; color: var(--accent); margin: 2rem 0; border-radius: 8px; text-align: center; }
+.parameter-list { list-style: none; color: #a0a0b0; }
+.parameter-list li { margin-bottom: 1rem; border-left: 2px solid #333; padding-left: 1rem; }
+.parameter-list strong { color: white; }
+
+/* The Graph Visual */
+.model-visual { width: 50%; display: flex; justify-content: center; }
+.graph-axes { position: relative; width: 100%; max-width: 500px; }
+.y-label { position: absolute; left: -20px; top: 50%; transform: rotate(-90deg) translateX(50%); font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #888; }
+.x-label { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #888; }
+.hill-curve { stroke-dasharray: 600; stroke-dashoffset: 600; }
+.operating-point { opacity: 0; transform: scale(0); transform-origin: center; }
+
+/* Parallax Solutions Section */
+.solutions-container { max-width: 1400px; margin: 0 auto; }
+.center-text { text-align: center; margin: 0 auto 4rem auto; }
+
+.parallax-track { display: flex; justify-content: space-between; gap: 2rem; padding-top: 5rem; }
+.parallax-card { 
+    background: rgba(20, 20, 25, 0.6); border: 1px solid var(--border); 
+    padding: 3rem 2rem; border-radius: 12px; width: 32%; 
+    backdrop-filter: blur(10px);
+}
+.parallax-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 1rem; color: white; }
+.card-tag { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--alert); margin-bottom: 1.5rem; letter-spacing: 1px; }
+.parallax-card p { color: #a0a0b0; font-size: 0.95rem; line-height: 1.7; }
