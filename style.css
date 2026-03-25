@@ -607,9 +607,14 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 16px; height:
 .containment-visual { width: 55%; height: 100vh; position: sticky; top: 0; display: flex; justify-content: center; align-items: center; }
 #security-rings { width: 600px; height: 600px; }
 
+
 /* The Rings */
-.sec-ring { transform-origin: center; }
-.sec-lock { transform-origin: center; filter: drop-shadow(0 0 10px rgba(0,255,204,0.5)); }
+.sec-ring, .sec-lock { 
+    transform-origin: 250px 250px; /* Forces rotation to the absolute center */
+}
+.sec-lock { 
+    filter: drop-shadow(0 0 10px rgba(0,255,204,0.5)); 
+}
 
 /* Breach Terminal Section */
 .breach-terminal-section { min-height: 100vh; background: #050002; display: flex; align-items: center; justify-content: center; padding: 5rem 5%; transition: background 0.5s; border-top: 1px solid #330011; }

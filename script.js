@@ -696,6 +696,9 @@ if (blueprintSection) {
 const containmentSection = document.querySelector('.containment-section');
 
 if (containmentSection) {
+    // THE FIX: Hard-lock the rotational origin directly in GSAP (bypassing CSS)
+    gsap.set(".sec-ring, .sec-lock", { svgOrigin: "250 250" });
+
     // 1. SCROLLYTELLING: THE SECURITY RINGS
     const layers = [
         { trigger: '#layer-1', ring: '#ring-1', lock: '#lock-1', rot: 180 },
@@ -754,49 +757,40 @@ if (containmentSection) {
     // Start filling the bar when mouse is pressed down
     const startPress = () => {
         if (isResolved) return;
-        
-        // GSAP tween to fill the bar over 2.5 seconds
         progressTween = gsap.to(fill, {
             width: "100%",
             duration: 2.5,
             ease: "power1.inOut",
-            onComplete: triggerLockdown // If it reaches 100%, trigger the climax
+            onComplete: triggerLockdown 
         });
-        
-        // Shake the button to simulate tension
         gsap.to(btn, { x: () => gsap.utils.random(-3, 3), y: () => gsap.utils.random(-3, 3), repeat: -1, yoyo: true, duration: 0.05 });
     };
 
-    // Reset if they let go too early
     const cancelPress = () => {
         if (isResolved) return;
         if (progressTween) progressTween.kill();
         gsap.killTweensOf(btn);
-        gsap.set(btn, { x: 0, y: 0 }); // Reset position
-        gsap.to(fill, { width: "0%", duration: 0.5, ease: "power2.out" }); // Drain the bar
+        gsap.set(btn, { x: 0, y: 0 }); 
+        gsap.to(fill, { width: "0%", duration: 0.5, ease: "power2.out" }); 
     };
 
-    // The Climax Animation
     const triggerLockdown = () => {
         isResolved = true;
         gsap.killTweensOf(btn);
         gsap.set(btn, { x: 0, y: 0 });
         
-        // Update Terminal UI
         terminal.classList.add('resolved');
         document.getElementById('breach-title').innerText = "THREAT NEUTRALIZED.";
         document.getElementById('breach-desc').innerText = "Apoptosis protocol executed successfully. Cellular mass has been lysed. Environmental integrity maintained.";
         btn.innerText = "[ PROTOCOL COMPLETE ]";
         gsap.to(fill, { background: "#00ffcc", duration: 0.3 });
         
-        // Flash the screen white, then settle into dark cyan
         gsap.fromTo(terminal, 
             { backgroundColor: "#ffffff" }, 
             { backgroundColor: "#020508", duration: 1.5, ease: "expo.out" }
         );
     };
 
-    // Event Listeners (Mouse and Touch for mobile)
     btn.addEventListener('mousedown', startPress);
     btn.addEventListener('mouseup', cancelPress);
     btn.addEventListener('mouseleave', cancelPress);
