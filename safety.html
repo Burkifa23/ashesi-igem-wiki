@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biosecurity & Failsafes | Bio-Foundry OS</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+</head>
+<body class="safety-mode">
+
+    <div id="os-cursor"></div>
+    <div id="os-cursor-trail"></div>
+
+    <div id="global-transition">
+        <div class="transition-text">ROUTING <span class="blink">...</span></div>
+        <div class="transition-bar"><div class="transition-fill"></div></div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="logo">ASHESI <span>iGEM_26</span></div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <div class="nav-dropdown">
+                <button class="drop-btn" style="color: white;">Project <span class="arrow">↓</span></button>
+                <div class="mega-menu">
+                    <div class="menu-col">
+                        <span class="menu-title">CONCEPT</span>
+                        <a href="description.html">Description</a>
+                        <a href="design.html">Design</a>
+                        <a href="safety.html" style="color: var(--accent);">Safety</a>
+                    </div>
+                    <div class="menu-col">
+                        <span class="menu-title">PEOPLE</span>
+                        <a href="human-practices.html">Human Practices</a>
+                        <a href="#">Team</a>
+                        <a href="#">Attributions</a>
+                    </div>
+                    <div class="menu-featured">
+                        <span class="featured-badge">Core Engine</span>
+                        <h4>Bio-Foundry OS</h4>
+                        <p>Explore the autonomous logic gates.</p>
+                        <a href="engineering.html" class="featured-link">View Engineering →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <button class="drop-btn">Wetlab <span class="arrow">↓</span></button>
+                <div class="mega-menu">
+                    <div class="menu-col">
+                        <span class="menu-title">DATA</span>
+                        <a href="engineering.html">Engineering</a>
+                        <a href="#">Parts Registry</a>
+                        <a href="#">Results</a>
+                    </div>
+                    <div class="menu-col">
+                        <span class="menu-title">DOCUMENTATION</span>
+                        <a href="#">Notebook</a>
+                        <a href="#">Protocols</a>
+                        <a href="#">Measurement</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="badge fade-in" style="border-color: #ff0055; color: #ff0055;">THREAT MITIGATION</div>
+        <div class="text-mask"><h1 class="flux-text">Zero-Escape</h1></div>
+        <div class="text-mask"><h1 class="flux-text highlight">Containment.</h1></div>
+        <p class="subtitle fade-in">Autonomous biosafety protocols designed to ensure absolute environmental isolation.</p>
+    </header>
+
+    <section class="containment-section">
+        
+        <div class="containment-text">
+            <div class="sec-layer" id="layer-1">
+                <div class="badge">TIER 1 // MACROSCOPIC</div>
+                <h2 class="scroll-reveal">Physical Isolation</h2>
+                <p>Standard glass bioreactors shatter. To prevent environmental leakage during transport or seismic events, the culture is housed within aerospace-grade Fluorinated Ethylene Propylene (FEP) bags. This material is biologically inert, mechanically flexible, and highly resistant to puncture.</p>
+            </div>
+
+            <div class="sec-layer" id="layer-2">
+                <div class="badge">TIER 2 // GENETIC</div>
+                <h2 class="scroll-reveal">Semantic Containment</h2>
+                <p>If physical containment fails, the hardware relies on Xenobiology. We engineered a strict synthetic auxotrophy. The biological processors cannot synthesize essential survival proteins without a non-canonical amino acid (p-acetylphenylalanine) exclusively provided by the OS. In the wild, they starve instantly.</p>
+            </div>
+
+            <div class="sec-layer" id="layer-3">
+                <div class="badge">TIER 3 // ALGORITHMIC</div>
+                <h2 class="scroll-reveal">Optogenetic Kill-Switch</h2>
+                <p>The ultimate failsafe. The bioreactor interior is bathed in red light. If the casing is cracked, exposing the culture to natural ambient blue light ($\lambda$ = 470 nm), the pBlind promoter immediately triggers the expression of Holin/Endolysin, physically rupturing the cell membrane in seconds.</p>
+            </div>
+        </div>
+
+        <div class="containment-visual">
+            <svg viewBox="0 0 500 500" id="security-rings">
+                <circle class="sec-ring" id="ring-1" cx="250" cy="250" r="220" fill="none" stroke="#333" stroke-width="2" stroke-dasharray="10 30" />
+                <path class="sec-lock" id="lock-1" d="M 250 10 A 240 240 0 0 1 490 250" fill="none" stroke="#00ffcc" stroke-width="6" opacity="0" />
+                
+                <circle class="sec-ring" id="ring-2" cx="250" cy="250" r="160" fill="none" stroke="#333" stroke-width="4" stroke-dasharray="40 20" />
+                <path class="sec-lock" id="lock-2" d="M 90 250 A 160 160 0 0 1 250 90" fill="none" stroke="#00ffcc" stroke-width="10" opacity="0" />
+
+                <circle class="sec-ring" id="ring-3" cx="250" cy="250" r="100" fill="none" stroke="#333" stroke-width="8" stroke-dasharray="80 40" />
+                <path class="sec-lock" id="lock-3" d="M 250 350 A 100 100 0 0 1 150 250" fill="none" stroke="#00ffcc" stroke-width="14" opacity="0" />
+
+                <circle id="secure-core" cx="250" cy="250" r="40" fill="#111" stroke="#333" stroke-width="2" />
+                <text x="250" y="255" text-anchor="middle" font-family="'Space Mono', monospace" font-size="12" fill="#666" font-weight="bold" id="core-status">UNSECURED</text>
+            </svg>
+        </div>
+    </section>
+
+    <section class="breach-terminal-section" id="breach-zone">
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <span class="blink warning-text">CRITICAL ALERT // CONTAINMENT COMPROMISED</span>
+                <span>SYS.TIME: <span id="sys-clock">00:00</span></span>
+            </div>
+            
+            <div class="terminal-body">
+                <h2 id="breach-title" style="color: #ff0055; font-size: 3rem; margin-bottom: 1rem;">UNAUTHORIZED EXPORT DETECTED.</h2>
+                <p id="breach-desc" style="color: #a0a0b0; max-width: 600px; margin-bottom: 3rem; font-size: 1.2rem;">
+                    Ambient UV exposure detected on biological payload. To prevent environmental contamination, manual authorization is required to initiate Holin/Endolysin cellular lysis protocol.
+                </p>
+
+                <div class="arm-mechanism">
+                    <button id="override-btn" class="glitch-btn">HOLD TO INITIATE APOPTOSIS</button>
+                    <div class="progress-bar-container">
+                        <div id="arm-fill" class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="grand-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">ASHESI <span>iGEM_26</span></div>
+                <p>Building offline-first biological infrastructure.</p>
+            </div>
+            <div class="footer-col">
+                <span>INDEX</span>
+                <a href="description.html">Description</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="human-practices.html">Human Practices</a>
+            </div>
+            <div class="footer-col">
+                <span>SYSTEM</span>
+                <a href="#">Parts Registry</a>
+                <a href="#">Safety Failsafes</a>
+                <a href="#">Source Code</a>
+            </div>
+        </div>
+        <div class="massive-year"><span class="copyright">©</span>iGEM</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

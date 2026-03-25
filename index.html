@@ -3,93 +3,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ashesi iGEM | Cultured Meat</title>
+    <title>Bio-Foundry OS | Ashesi iGEM</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });">
+    </script>
 </head>
 <body>
-    <nav class="solid-nav">
-        <div class="nav-content">
-            <div class="logo">ASHESI <span>iGEM</span></div>
-            <div class="nav-links">
-                <a href="#problem">The Problem</a>
-                <a href="#science">The Science</a>
-                <a href="#impact">Human Practices</a>
+    <div id="global-transition">
+        <div class="transition-text">ROUTING <span class="blink">...</span></div>
+        <div class="transition-bar"><div class="transition-fill"></div></div>
+    </div>
+
+    <div id="os-telemetry">
+        <div class="telemetry-stat">
+            <span class="stat-label">SCROLL</span>
+            <span id="scroll-percent" class="stat-value">00%</span>
+        </div>
+        <div class="telemetry-stat">
+            <span class="stat-label">SYS.FPS</span>
+            <span id="fps-counter" class="stat-value">60</span>
+        </div>
+    </div>
+
+    <div id="glossary-tooltip"></div>
+
+    <nav class="glass-nav">
+        <div class="logo">ASHESI <span>iGEM_26</span></div>
+        
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            
+            <div class="nav-dropdown">
+                <button class="drop-btn">Project <span class="arrow">↓</span></button>
+                <div class="mega-menu">
+                    <div class="menu-col">
+                        <span class="menu-title">CONCEPT</span>
+                        <a href="description.html">Description</a>
+                        <a href="design.html">Design</a>
+                        <a href="safety.html">Safety</a>
+                    </div>
+                    <div class="menu-col">
+                        <span class="menu-title">PEOPLE</span>
+                        <a href="human-practices.html">Human Practices</a>
+                        <a href="#">Team</a>
+                        <a href="#">Attributions</a>
+                    </div>
+                    <div class="menu-featured">
+                        <span class="featured-badge">Core Engine</span>
+                        <h4>Bio-Foundry OS</h4>
+                        <p>Explore the autonomous logic gates.</p>
+                        <a href="engineering.html" class="featured-link">View Engineering →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-dropdown">
+                <button class="drop-btn">Wetlab <span class="arrow">↓</span></button>
+                <div class="mega-menu">
+                    <div class="menu-col">
+                        <span class="menu-title">DATA</span>
+                        <a href="engineering.html">Engineering</a>
+                        <a href="#">Parts Registry</a>
+                        <a href="#">Results</a>
+                    </div>
+                    <div class="menu-col">
+                        <span class="menu-title">DOCUMENTATION</span>
+                        <a href="#">Notebook</a>
+                        <a href="#">Protocols</a>
+                        <a href="#">Measurement</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <header id="hero">
-        <div class="container hero-grid">
-            <div class="hero-text">
-                <div class="badge fade-in">Project 2025</div>
-                <h1 class="fade-in">Cultivating Protein. <br><span class="highlight">Redefining Meat.</span></h1>
-                <p class="fade-in">We are using cellular agriculture to engineer sustainable, slaughter-free meat tailored for the African continent. High-quality protein without the environmental cost of traditional livestock.</p>
-            </div>
-            <div class="hero-visual fade-in">
-                <svg viewBox="0 0 200 200" class="cell-svg">
-                    <circle class="petri-dish" cx="100" cy="100" r="90" fill="none" stroke="#8b0000" stroke-width="4"/>
-                    <circle class="cell main-cell" cx="100" cy="100" r="25" fill="#8b0000"/>
-                    <circle class="cell split-cell-1" cx="100" cy="100" r="25" fill="#8b0000"/>
-                    <circle class="cell split-cell-2" cx="100" cy="100" r="25" fill="#8b0000"/>
-                </svg>
-            </div>
-        </div>
+    <header class="hero">
+        <div class="text-mask"><h1 class="flux-text">Engineering Life</h1></div>
+        <div class="text-mask"><h1 class="flux-text highlight">For Extreme Extremes.</h1></div>
+        <p class="subtitle fade-in">An Offline-First Bio-Foundry OS bridging deep space and deep rural infrastructures.</p>
+        <div class="scroll-prompt fade-in">INITIALIZE NARRATIVE ↓</div>
     </header>
 
-    <section id="problem" class="bg-light">
-        <div class="container text-center">
-            <h2 class="section-title scroll-up">The Protein Deficit</h2>
-            <p class="section-desc scroll-up">As population growth accelerates across West Africa, traditional livestock farming is draining our water resources and accelerating deforestation. We need a localized, scalable biomanufacturing solution to ensure future food security.</p>
+    <section class="narrative-track" id="macro-to-micro">
+        
+        <div class="content-scroll">
+            
+            <div class="story-panel" id="panel-nasa">
+                <div class="badge">01 // THE MACRO</div>
+                <div class="text-mask"><h2 class="scroll-reveal">In-Situ Resource Utilization</h2></div>
+                <p>NASA relies on <span class="glossary-term" data-def="Engineering living organisms to calculate inputs and produce outputs, bypassing the need for electronic hardware.">biological computers</span> for deep space missions. Transporting abiotic plastics to Mars imposes an insurmountable mass penalty. The solution is biological <span class="glossary-term" data-def="NASA's strategy of utilizing local environmental resources (like Martian CO2) rather than bringing supplies from Earth.">ISRU</span>: utilizing lithoautotrophic bacteria to synthesize bio-polymers offline, in the harshest environments conceivable.</p>
+            </div>
+
+            <div class="story-panel" id="panel-earth">
+                <div class="badge">02 // THE LOCAL</div>
+                <div class="text-mask"><h2 class="scroll-reveal">The Terrestrial Translation</h2></div>
+                <p>The infrastructural vacuum of a Martian colony perfectly mirrors the logistical realities of ultra-rural West Africa. Commercial grids in Ghana experience severe <span class="glossary-term" data-def="A temporary reduction in voltage on the electrical grid, severely degrading industrial motor performance.">voltage sags</span> under 207V for 22% of their operational time. If a biological system can survive Mars, it can survive the terrestrial grid.</p>
+            </div>
+
+            <div class="story-panel" id="panel-cell">
+                <div class="badge">03 // THE MICRO</div>
+                <div class="text-mask"><h2 class="scroll-reveal">Programming the Cell</h2></div>
+                <p>We strip away the cloud and the hardware. By engineering synthetic plasmids into *E. coli*, we create orthogonal <span class="glossary-term" data-def="A genetic circuit requiring both HrpR and HrpS proteins to actuate, ensuring zero spontaneous misfires.">AND logic gates</span>. The cell itself acts as the microprocessor, calculating environmental toxicity and thermal drift natively.</p>
+            </div>
+
         </div>
+
+        <div class="visual-pin">
+            <svg viewBox="0 0 600 600" id="master-svg">
+                <circle class="vector-path path-mars" cx="300" cy="300" r="250" fill="none" stroke="#ff0055" stroke-width="2" stroke-dasharray="20 15" />
+                
+                <g class="layer-earth" opacity="0">
+                    <rect class="vector-path path-grid" x="150" y="150" width="300" height="300" fill="none" stroke="#00ffcc" stroke-width="2" />
+                    <line class="vector-path path-grid" x1="300" y1="150" x2="300" y2="450" stroke="#00ffcc" stroke-width="1" />
+                    <line class="vector-path path-grid" x1="150" y1="300" x2="450" y2="300" stroke="#00ffcc" stroke-width="1" />
+                </g>
+
+                <circle class="vector-path path-micro" cx="300" cy="300" r="80" fill="none" stroke="#ffffff" stroke-width="6" opacity="0" />
+                <circle class="core-node" cx="300" cy="300" r="10" fill="#00ffcc" opacity="0" />
+            </svg>
+        </div>
+
     </section>
 
-    <section id="science">
-        <div class="container">
-            <h2 class="section-title scroll-up">Our Engineering Approach</h2>
-            <div class="grid-3">
+    
+
+    <section class="stress-section" id="infrastructure">
+        <div class="spotlight-mask"></div>
+        
+        <div class="velocity-grid"></div>
+
+        <div class="stress-content">
+            <div class="badge alert-badge">SYSTEM STRESS-TEST</div>
+            <div class="text-mask"><h2 class="scroll-reveal alert-text">The "Dumsor" Phenomenon</h2></div>
+            
+            <p class="tech-lead">
+                Designing a bio-foundry without accounting for electromechanical physics results in catastrophic failure. Commercial grids in Ghana experience severe under-voltage spells (< 207V) for roughly <span class="highlight">22% of operational time</span>. Scroll velocity dictates grid stability.
+            </p>
+
+            <div class="data-dashboard">
+                <div class="data-card">
+                    <div class="data-value">-28%</div>
+                    <div class="data-label">MOTOR TORQUE LOSS</div>
+                    <p>A 15% voltage sag causes an exponential drop in induction motor torque, stalling bioreactor impellers and degrading the oxygen mass transfer coefficient.</p>
+                </div>
                 
-                <div class="card scroll-up">
-                    <div class="card-number">01</div>
-                    <h3>Immortalized Cell Lines</h3>
-                    <p>We are engineering local bovine and poultry cell lines to proliferate indefinitely in suspension, removing the need for continuous animal biopsies and lowering long-term production costs.</p>
+                <div class="data-card">
+                    <div class="data-label">THE HYPOXIC CASCADE</div>
+                    <p>Without aeration, dissolved oxygen is consumed in < 30 seconds. ArcA~P represses terminal oxidases, forcing a massive upregulation of <em>pflAB</em> for mixed-acid fermentation.</p>
                 </div>
-
-                <div class="card scroll-up">
-                    <div class="card-number">02</div>
-                    <h3>Plant-Based Scaffolding</h3>
-                    <p>Cultured cells need a structure to form textured meat. We are utilizing abundant local crops like cassava and yam starch to create edible, 3D bio-printed scaffolds for the cells to attach to.</p>
+                
+                <div class="data-card">
+                    <div class="data-label">PMF COLLAPSE (pH 4.0)</div>
+                    <p>Toxic acetate accumulation overwhelms the media buffer. The influx of protons dissipates the transmembrane ΔpH gradient, collapsing the Proton Motive Force (PMF) required for ATP synthesis.</p>
                 </div>
-
-                <div class="card scroll-up">
-                    <div class="card-number">03</div>
-                    <h3>Serum-Free Media</h3>
-                    <p>Replacing controversial Fetal Bovine Serum (FBS) with a cost-effective, recombinantly produced growth media tailored specifically for our engineered cell lines.</p>
+                
+                <div class="data-card">
+                    <div class="data-label">RE-OXYGENATION CRISIS</div>
+                    <p>Grid restoration blasts pure air into a hypoxic liquid. The resulting burst of Reactive Oxygen Species (ROS) fractures genomic DNA via the Fenton reaction. The recovery is more lethal than the blackout.</p>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <section id="impact" class="bg-light border-top">
-        <div class="container flex-split">
-            <div class="split-text scroll-up">
-                <h2 class="section-title text-left">Integrated Human Practices</h2>
-                <p>Technology alone cannot change diets. Our project is deeply integrated with local stakeholders to ensure cultural acceptance and economic viability.</p>
-                <ul class="impact-list">
-                    <li><strong>Farmer Integration:</strong> Exploring how traditional farmers can pivot to supplying agricultural inputs for bio-scaffolding.</li>
-                    <li><strong>Consumer Perception:</strong> Conducting comprehensive surveys across Ghana to understand the ethical and culinary acceptance of lab-grown meat.</li>
-                    <li><strong>Regulatory Frameworks:</strong> Partnering with local food safety authorities to draft the first guidelines for cellular agriculture in West Africa.</li>
+    <section class="logic-section" id="wetlab">
+        
+        <div class="logic-container">
+            <div class="logic-text">
+                <div class="badge">03 // BIOLOGICAL COMPUTING</div>
+                <div class="text-mask"><h2 class="scroll-reveal">HrpR/HrpS Logic Gates</h2></div>
+                
+                <p class="tech-lead">
+                    We program the *E. coli* chassis to autonomously calculate environmental inputs. By refactoring the <span class="glossary-term" data-def="A plant pathogen secretion system. Used here because it has zero crosstalk with native E. coli genetics.">Pseudomonas syringae Type III secretion system</span>, we engineered a mathematically robust AND gate.
+                </p>
+
+                <div class="spec-block">
+                    <h3>Input A: Arsenic Toxicity ($P_{arsR}$)</h3>
+                    <p>Bioavailable arsenite allosterically binds the ArsR repressor, dissociating it from the operator. This de-represses the promoter, synthesizing the <strong>HrpR</strong> monomer.</p>
+                </div>
+
+                <div class="spec-block">
+                    <h3>Input B: Thermal Drift (cI857)</h3>
+                    <p>The mutated viral repressor cI857 is thermolabile. As grid failures cause bioreactor temps to drift $\ge$ 37°C, the repressor denatures, synthesizing the <strong>HrpS</strong> monomer.</p>
+                </div>
+
+                <div class="spec-block">
+                    <h3>Output: Actuation ($P_{hrpL}$)</h3>
+                    <p>Only when both inputs are strictly TRUE do HrpR and HrpS stoichiometrically bind into a hetero-hexameric complex, driving the $P_{hrpL}$ promoter to actuate the failsafe response (Visualized here as GFP).</p>
+                </div>
+            </div>
+
+            <div class="logic-workspace">
+                <div class="workspace-label">INTERACTIVE TERMINAL // CLICK NODES TO TOGGLE STATE</div>
+                
+                <div class="circuit-board">
+                    <svg class="circuit-lines" viewBox="0 0 400 400">
+                        <path id="line-a" d="M100 100 C 200 100, 200 200, 300 200" fill="none" stroke="#333" stroke-width="4"/>
+                        <path id="line-b" d="M100 300 C 200 300, 200 200, 300 200" fill="none" stroke="#333" stroke-width="4"/>
+                    </svg>
+
+                    <div class="magnetic-wrapper" style="top: 80px; left: 60px;">
+                        <button class="node input-node" id="node-a" data-state="0">
+                            <span class="node-title">INPUT_A</span>
+                            <span class="node-val">ARSENIC: 0</span>
+                        </button>
+                    </div>
+
+                    <div class="magnetic-wrapper" style="top: 280px; left: 60px;">
+                        <button class="node input-node" id="node-b" data-state="0">
+                            <span class="node-title">INPUT_B</span>
+                            <span class="node-val">HEAT: 0</span>
+                        </button>
+                    </div>
+
+                    <div class="output-wrapper" style="top: 180px; left: 280px;">
+                        <div class="node output-node" id="node-out">
+                            <span class="node-title">HEXAMER</span>
+                            <span class="node-val">GFP: OFF</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="math-hardware-section" id="architecture">
+        
+        <div class="model-container">
+            <div class="model-text">
+                <div class="badge">04 // SYSTEM MODELING</div>
+                <div class="text-mask"><h2 class="scroll-reveal">Transfer Functions</h2></div>
+                <p class="tech-lead">
+                    To ensure the Bio-Foundry does not falsely actuate during transcriptomic chaos, the HrpR/HrpS gate must operate digitally. We parameterized the steady-state input-output response using a multi-variable Hill equation.
+                </p>
+                <div class="equation-box">
+                    $$ [G] = [G]max * ( [R]^nR / (Kr^nR + [R]^nR) ) * ( [S]^nS / (Ks^nS + [S]^nS) ) $$
+                </div>
+                <ul class="parameter-list">
+                    <li><strong>Coefficients:</strong> nR = 2.381, nS = 1.835</li>
+                    <li><strong>Constants:</strong> Kr = 206.1, Ks = 3135</li>
+                    <li><strong>Result:</strong> The Hill coefficients (>1) confirm highly cooperative binding, creating a sharp, digital transition from OFF to ON, eliminating noisy intermediate states.</li>
                 </ul>
             </div>
-            <div class="split-box scroll-up">
-                <h3>"Innovation must be rooted in local reality."</h3>
-                <p>- The Ashesi iGEM Philosophy</p>
+            
+            <div class="model-visual">
+                <div class="graph-axes">
+                    <span class="y-label">Fluorescence (GFP)</span>
+                    <span class="x-label">Input Concentration</span>
+                    <svg viewBox="0 0 400 300" class="hill-graph">
+                        <path class="graph-grid" d="M50 250 L350 250 M50 250 L50 50" fill="none" stroke="#333" stroke-width="2"/>
+                        <path class="hill-curve" d="M50 245 C 150 245, 200 60, 350 55" fill="none" stroke="#00ffcc" stroke-width="4" stroke-linecap="round"/>
+                        <circle class="operating-point" cx="200" cy="152.5" r="6" fill="#ff0055"/>
+                    </svg>
+                </div>
             </div>
         </div>
+
+        <div class="solutions-container">
+            <div class="text-mask"><h2 class="scroll-reveal center-text">Hardware Imperatives</h2></div>
+            <p class="tech-lead center-text">
+                Translating aerospace In-Situ Resource Utilization (ISRU) to West African grid instability requires abandoning traditional CSTR bioreactors and engineering metabolic shock absorbers.
+            </p>
+
+            <div class="parallax-track">
+                <div class="parallax-card" data-speed="0.8">
+                    <h3>01. FEP Bioreactor Bags</h3>
+                    <div class="card-tag">REF: ISS BioNutrients</div>
+                    <p>Standard bioreactors fail instantly without power. We adopt NASA's Fluorinated Ethylene Propylene (FEP) flexible bags. Their exceptionally high gas permeability maintains passive oxygen transfer during blackout-induced impeller failures.</p>
+                </div>
+
+                <div class="parallax-card" data-speed="1.1">
+                    <h3>02. ROS Scavenging</h3>
+                    <div class="card-tag">REF: Re-Oxygenation Crisis</div>
+                    <p>When the grid recovers, the sudden blast of $O_2$ into a hypoxic culture generates lethal superoxide anions. Our chassis constitutively overexpresses <em>sodA</em> and <em>katG</em> to neutralize the Fenton reaction and survive the transient.</p>
+                </div>
+
+                <div class="parallax-card" data-speed="0.9">
+                    <h3>03. Low-Copy Actuation</h3>
+                    <div class="card-tag">REF: pSC101 Backbone</div>
+                    <p>Deploying the logic output on a high-copy plasmid leads to leaky actuation during voltage sags. We isolate the output module on a strictly low-copy (pSC101) plasmid, ensuring absolute silence until strictly commanded.</p>
+                </div>
+            </div>
+        </div>
+
     </section>
+
+    <footer class="grand-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">ASHESI <span>iGEM_26</span></div>
+                <p>Building offline-first biological infrastructure.</p>
+            </div>
+            <div class="footer-col">
+                <span>INDEX</span>
+                <a href="description.html">Description</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="human-practices.html">Human Practices</a>
+            </div>
+            <div class="footer-col">
+                <span>SYSTEM</span>
+                <a href="#">Parts Registry</a>
+                <a href="#">Safety Failsafes</a>
+                <a href="#">Source Code</a>
+            </div>
+        </div>
+        
+        <div class="massive-year">
+            iGEM
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

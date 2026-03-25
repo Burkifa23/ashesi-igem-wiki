@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Architecture | Bio-Foundry OS</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+</head>
+<body class="blueprint-mode"> <div id="os-cursor"></div>
+    <div id="os-cursor-trail"></div>
+
+    <div id="global-transition">
+        <div class="transition-text">ROUTING <span class="blink">...</span></div>
+        <div class="transition-bar"><div class="transition-fill"></div></div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="logo">ASHESI <span>iGEM_26</span></div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <div class="nav-dropdown">
+                <button class="drop-btn" style="color: white;">Project <span class="arrow">↓</span></button>
+                <div class="mega-menu">
+                    <div class="menu-col">
+                        <span class="menu-title">CONCEPT</span>
+                        <a href="description.html">Description</a>
+                        <a href="design.html" style="color: var(--accent);">Design</a>
+                        <a href="safety.html">Safety</a>
+                    </div>
+                    <div class="menu-col">
+                        <span class="menu-title">PEOPLE</span>
+                        <a href="human-practices.html">Human Practices</a>
+                        <a href="#">Team</a>
+                        <a href="#">Attributions</a>
+                    </div>
+                    <div class="menu-featured">
+                        <span class="featured-badge">Core Engine</span>
+                        <h4>Bio-Foundry OS</h4>
+                        <p>Explore the autonomous logic gates.</p>
+                        <a href="engineering.html" class="featured-link">View Engineering →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <button class="drop-btn">Wetlab <span class="arrow">↓</span></button>
+                <div class="mega-menu">
+                    <div class="menu-col">
+                        <span class="menu-title">DATA</span>
+                        <a href="engineering.html">Engineering</a>
+                        <a href="#">Parts Registry</a>
+                        <a href="#">Results</a>
+                    </div>
+                    <div class="menu-col">
+                        <span class="menu-title">DOCUMENTATION</span>
+                        <a href="#">Notebook</a>
+                        <a href="#">Protocols</a>
+                        <a href="#">Measurement</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero desc-hero">
+        <div class="badge fade-in" style="border-color: #00ffcc; color: #00ffcc;">SYSTEM ARCHITECTURE</div>
+        <div class="text-mask"><h1 class="flux-text">The Genetic</h1></div>
+        <div class="text-mask"><h1 class="flux-text highlight">Blueprint.</h1></div>
+        <p class="subtitle fade-in">Drafting the topology of an orthogonal, $\sigma^{54}$-dependent biological processor.</p>
+    </header>
+
+    <section class="plasmid-blueprint-section">
+        
+        <div class="blueprint-text">
+            
+            <div class="spec-module" id="mod-sensor">
+                <div class="badge">MODULE 01</div>
+                <h2 class="scroll-reveal">The Sensor Array</h2>
+                <p>To compute the environment, the system requires discrete inputs. We utilized the native <em>E. coli</em> heat-shock promoter ($P_{htpG}$) to detect thermal drift above 37°C, and a highly tuned $P_{arsR}$ promoter to detect bioavailable heavy metals.</p>
+                <div class="tech-table">
+                    <div class="t-row"><span>INPUT A</span><span>Thermal Drift (>37°C)</span></div>
+                    <div class="t-row"><span>INPUT B</span><span>Arsenic Toxicity (>10ppb)</span></div>
+                </div>
+            </div>
+
+            <div class="spec-module" id="mod-processor">
+                <div class="badge">MODULE 02</div>
+                <h2 class="scroll-reveal">The Logic Processor</h2>
+                <p>Standard repressors leak under stress. We designed a strict AND gate utilizing the HrpR and HrpS enhancer-binding proteins from <em>P. syringae</em>. Neither can actuate transcription alone. They must physically bind together into a hetero-hexamer to hydrolyze ATP and open the promoter.</p>
+                <div class="tech-table">
+                    <div class="t-row"><span>MECHANISM</span><span>Hetero-hexameric Assembly</span></div>
+                    <div class="t-row"><span>PROMOTER</span><span>$\sigma^{54}$-dependent ($P_{hrpL}$)</span></div>
+                </div>
+            </div>
+
+            <div class="spec-module" id="mod-actuator">
+                <div class="badge">MODULE 03</div>
+                <h2 class="scroll-reveal">The Actuator</h2>
+                <p>Upon successful computation of both stress states (TRUE AND TRUE), the $\sigma^{54}$ polymerase complex is unlocked. The circuit actuates our reporter gene, triggering a massive downstream synthesis of GFP for visual telemetry.</p>
+                <div class="tech-table">
+                    <div class="t-row"><span>OUTPUT</span><span>GFP (Green Fluorescent Protein)</span></div>
+                    <div class="t-row"><span>STATE</span><span>Digital (0 or 1)</span></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="blueprint-visual">
+            <div class="plasmid-container">
+                <div class="plasmid-center-text">pSB1C3<br><span>CHASSIS</span></div>
+                
+                <svg viewBox="0 0 500 500" id="plasmid-svg">
+                    <circle cx="250" cy="250" r="180" fill="none" stroke="#222" stroke-width="20" />
+                    
+                    <path id="arc-sensor" class="p-arc" d="M 250 70 A 180 180 0 0 1 430 250" fill="none" stroke="#00ffcc" stroke-width="24" stroke-linecap="round" />
+                    
+                    <path id="arc-processor" class="p-arc" d="M 430 250 A 180 180 0 0 1 250 430" fill="none" stroke="#ff0055" stroke-width="24" stroke-linecap="round" />
+                    
+                    <path id="arc-actuator" class="p-arc" d="M 250 430 A 180 180 0 0 1 70 250" fill="none" stroke="#39ff14" stroke-width="24" stroke-linecap="round" />
+                </svg>
+                
+                <div class="annotation-line" id="anno-line"></div>
+                <div class="annotation-text" id="anno-text">AWAITING INPUT...</div>
+            </div>
+        </div>
+
+    </section>
+
+    <footer class="grand-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">ASHESI <span>iGEM_26</span></div>
+                <p>Building offline-first biological infrastructure.</p>
+            </div>
+            <div class="footer-col">
+                <span>INDEX</span>
+                <a href="description.html">Description</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="human-practices.html">Human Practices</a>
+            </div>
+            <div class="footer-col">
+                <span>SYSTEM</span>
+                <a href="#">Parts Registry</a>
+                <a href="#">Safety Failsafes</a>
+                <a href="#">Source Code</a>
+            </div>
+        </div>
+        <div class="massive-year"><span class="copyright">©</span>iGEM</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

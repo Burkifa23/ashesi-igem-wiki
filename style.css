@@ -1,168 +1,633 @@
 :root {
-    --bg-dark: #0a0a0a;
-    --bg-light: #f4f4f0;
-    --text-dark: #111111;
-    --text-light: #ffffff;
-    --ashesi-red: #8b0000;
-    --border-color: #333333;
+    --bg-dark: #020203;
+    --text-main: #f0f0f5;
+    --text-muted: #888899;
+    --accent: #00ffcc;
+    --alert: #ff0055;
+    --glass: rgba(10, 10, 15, 0.7);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
+    background: var(--bg-dark); color: var(--text-main);
+    font-family: 'Inter', sans-serif; overflow-x: hidden; line-height: 1.6;
 }
 
-h1, h2, h3, .logo, .badge, .card-number { 
-    font-family: 'Space Grotesk', sans-serif; 
+h1, h2 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -1.5px; }
+.badge, .logo { font-family: 'Space Mono', monospace; }
+
+/* --- GLOBAL NAVIGATION (Upgraded Glassmorphism) --- */
+.glass-nav { 
+    position: fixed; top: 0; left: 0; width: 100%; 
+    padding: 1.5rem 5%; z-index: 9999; 
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(2, 2, 3, 0.6); /* Semi-transparent dark */
+    backdrop-filter: blur(12px);    /* Frosted glass blur */
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
+.logo { font-size: 1.2rem; font-weight: 700; color: #ffffff; letter-spacing: 1px; }
+.logo span { color: var(--accent); }
 
-/* Navigation */
-.solid-nav {
-    position: fixed;
-    top: 0; width: 100%;
-    background: var(--bg-dark);
-    border-bottom: 2px solid var(--border-color);
-    z-index: 100;
-    padding: 1.5rem 0;
-}
-
-.nav-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-}
-
-.logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
-.logo span { color: var(--ashesi-red); }
-
-.nav-links a {
-    color: var(--text-light);
-    text-decoration: none;
-    margin-left: 2.5rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--ashesi-red); }
-
-/* Hero */
-#hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding-top: 80px;
-    border-bottom: 2px solid var(--border-color);
-}
-
-.hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.badge {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: var(--ashesi-red);
-    color: white;
-    font-weight: 700;
-    font-size: 0.85rem;
+.nav-links { display: flex; gap: 2.5rem; }
+.nav-link { 
+    color: #a0a0b0; /* Subtle grey text */
+    text-decoration: none; 
+    font-family: 'Space Mono', monospace; 
+    font-size: 0.85rem; 
+    letter-spacing: 1px;
     text-transform: uppercase;
-    margin-bottom: 2rem;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+.nav-link:hover, .nav-link.active { 
+    color: #ffffff; 
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5); /* Cyan glow on hover */
 }
 
-h1 {
-    font-size: clamp(3rem, 5vw, 4.5rem);
-    line-height: 1.05;
-    margin-bottom: 1.5rem;
-    letter-spacing: -1.5px;
+/* --- TYPOGRAPHY EFFECTS (Framer "TextFlux" Simulation) --- */
+.text-mask { overflow: hidden; display: block; padding-bottom: 5px; }
+.flux-text { transform: translateY(110%); font-size: clamp(4rem, 8vw, 7rem); line-height: 1; }
+.highlight { color: var(--accent); }
+.scroll-reveal { transform: translateY(110%); font-size: 3.5rem; margin-bottom: 1.5rem; }
+
+/* Hero Base */
+.hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; position: relative; }
+.subtitle { font-size: 1.5rem; color: var(--text-muted); max-width: 600px; margin-top: 2rem; font-family: 'Space Mono', monospace; }
+.scroll-prompt { position: absolute; bottom: 3rem; font-family: 'Space Mono', monospace; color: var(--text-muted); font-size: 0.8rem; letter-spacing: 2px; }
+
+/* --- GLOSSARY HOVER COMPONENT --- */
+.glossary-term {
+    color: var(--accent); border-bottom: 1px dashed var(--accent);
+    cursor: help; position: relative; transition: color 0.3s;
+}
+.glossary-term:hover { color: white; border-bottom: 1px solid white; }
+
+#glossary-tooltip {
+    position: fixed; top: 0; left: 0; pointer-events: none; opacity: 0;
+    background: var(--glass); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1);
+    padding: 1rem 1.5rem; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.85rem;
+    color: white; max-width: 300px; z-index: 9999; transform: translate(-50%, -120%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: opacity 0.2s;
 }
 
-.highlight { color: var(--ashesi-red); }
+/* --- NARRATIVE SCROLL LAYOUT --- */
+.narrative-track { display: flex; width: 100%; position: relative; }
+.content-scroll { width: 50%; padding: 0 5%; z-index: 2; }
+.story-panel { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 4rem 0; }
+.badge { color: var(--alert); border: 1px solid var(--alert); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.75rem; width: fit-content; margin-bottom: 1.5rem; }
+.story-panel p { font-size: 1.3rem; color: #a0a0b0; max-width: 600px; }
 
-.hero-text p {
-    font-size: 1.2rem;
-    color: #a0a0a0;
-    max-width: 500px;
+/* The Pinned Vector */
+.visual-pin { width: 50%; height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; }
+#master-svg { width: 80%; height: auto; }
+
+/* DrawSVG Simulation */
+.vector-path { stroke-dasharray: 2000; stroke-dashoffset: 2000; }
+
+
+/* --- PHASE 2: STRESS TEST STYLES --- */
+.stress-section {
+    position: relative; min-height: 100vh; padding: 8rem 10%;
+    background-color: #010101; overflow: hidden;
+    cursor: crosshair;
 }
 
-/* Shared Section Styles */
-section { padding: 8rem 0; }
-.bg-light { background-color: var(--bg-light); color: var(--text-dark); }
-.border-top { border-top: 2px solid #e0e0e0; }
+.alert-badge { border-color: var(--alert); color: var(--alert); }
+.alert-text { color: var(--alert); }
+.tech-lead { font-size: 1.5rem; color: var(--text-muted); max-width: 800px; margin-bottom: 5rem; line-height: 1.6; }
 
-.section-title {
-    font-size: 3rem;
-    margin-bottom: 2rem;
-    letter-spacing: -1px;
-}
-.text-left { text-align: left; }
-.section-desc { font-size: 1.25rem; max-width: 800px; margin: 0 auto; }
-
-/* Grid Cards (The Science) */
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 4rem;
+/* String-Tune Spotlight Effect */
+.spotlight-mask {
+    position: absolute; inset: 0; pointer-events: none; z-index: 10;
+    /* The mask updates based on JS coordinates */
+    background: radial-gradient(circle 500px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, #010101 90%);
 }
 
-.card {
-    border: 2px solid var(--border-color);
-    padding: 3rem 2rem;
-    transition: transform 0.2s, border-color 0.2s;
-    background: var(--bg-dark);
+/* String-Tune Lerp (Velocity Grid Glitch) */
+.velocity-grid {
+    position: absolute; inset: -10%; z-index: 0; opacity: 0.3; pointer-events: none;
+    background-image: 
+        linear-gradient(rgba(255, 0, 85, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 85, 0.2) 1px, transparent 1px);
+    background-size: 50px 50px;
+    /* These variables are injected by GSAP based on scroll speed */
+    transform: skewY(var(--skew-y, 0deg)) scale(var(--scale, 1));
+    filter: drop-shadow(var(--rgb-split, 0px) 0px 0px rgba(0,255,204,0.8));
+    transition: transform 0.1s ease-out, filter 0.1s ease-out;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    border-color: var(--ashesi-red);
+.stress-content { position: relative; z-index: 5; }
+
+/* Data Dashboard */
+.data-dashboard {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem;
 }
 
-.card-number {
-    font-size: 3rem;
-    color: var(--ashesi-red);
-    font-weight: 700;
-    margin-bottom: 1rem;
-    line-height: 1;
+.data-card {
+    border-top: 1px solid var(--border, #333); padding-top: 2rem;
+    position: relative;
+}
+/* Creates a cool crosshair target at the corner of each card */
+.data-card::before {
+    content: '+'; position: absolute; top: -7px; left: -4px;
+    color: var(--accent); font-family: 'Space Mono', monospace; font-size: 12px;
 }
 
-.card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-.card p { color: #a0a0a0; font-size: 0.95rem; }
+.data-value { font-family: 'Space Grotesk', sans-serif; font-size: 4rem; color: var(--text-main); line-height: 1; margin-bottom: 1rem; letter-spacing: -2px; }
+.data-label { font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--alert); margin-bottom: 1rem; letter-spacing: 1px; }
+.data-card p { font-size: 0.95rem; color: #a0a0b0; line-height: 1.7; }
 
-/* Split Section (Human Practices) */
-.flex-split {
+
+/* --- PHASE 3: WETLAB LOGIC STYLES --- */
+.logic-section {
+    min-height: 100vh; padding: 8rem 5%; background-color: #030305;
+    border-top: 1px solid var(--border);
+}
+
+.logic-container {
+    display: flex; max-width: 1400px; margin: 0 auto; gap: 4rem;
+}
+
+.logic-text { width: 45%; }
+.spec-block { margin-top: 3rem; border-left: 2px solid var(--border); padding-left: 1.5rem; transition: border-color 0.3s; }
+.spec-block:hover { border-color: var(--accent); }
+.spec-block h3 { font-family: 'Space Mono', monospace; font-size: 1.1rem; color: white; margin-bottom: 0.5rem; }
+.spec-block p { font-size: 0.95rem; color: #a0a0b0; }
+
+/* The Interactive Workspace */
+.logic-workspace { width: 55%; background: rgba(10, 10, 15, 0.5); border: 1px solid var(--border); border-radius: 12px; position: relative; display: flex; flex-direction: column; }
+.workspace-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); padding: 1rem; border-bottom: 1px solid var(--border); letter-spacing: 2px; }
+
+.circuit-board { flex: 1; position: relative; overflow: hidden; min-height: 500px; }
+.circuit-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+/* Node Mechanics */
+.magnetic-wrapper { position: absolute; width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; z-index: 10; }
+.output-wrapper { position: absolute; width: 120px; height: 120px; display: flex; justify-content: center; align-items: center; z-index: 5; }
+
+.node {
+    width: 80px; height: 80px; border-radius: 50%; background: var(--bg-dark);
+    border: 2px solid var(--border); display: flex; flex-direction: column; justify-content: center; align-items: center;
+    cursor: pointer; transition: background 0.3s, box-shadow 0.3s;
+    /* This prevents the text from messing up the hover hitboxes */
+    user-select: none; pointer-events: none; 
+}
+
+/* We re-enable pointer events on the wrapper to catch the mouse cleanly */
+.magnetic-wrapper { pointer-events: auto; }
+
+.node-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; color: white; font-weight: bold; }
+.node-val { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--text-muted); margin-top: 4px; }
+
+/* Active States */
+.input-node.active { border-color: var(--accent); background: rgba(0, 255, 204, 0.1); box-shadow: 0 0 20px rgba(0,255,204,0.2); }
+.input-node.active .node-val { color: var(--accent); }
+
+.output-node.active { border-color: #39ff14; background: rgba(57, 255, 20, 0.15); box-shadow: 0 0 40px rgba(57,255,20,0.4); }
+.output-node.active .node-title { color: #39ff14; }
+.output-node.active .node-val { color: #39ff14; }
+
+/* --- PHASE 4: MODELING & HARDWARE --- */
+.math-hardware-section { background-color: #020203; padding: 8rem 5%; border-top: 1px dashed #333; }
+
+/* The Math Model Layout */
+.model-container { display: flex; max-width: 1400px; margin: 0 auto 10rem auto; gap: 4rem; align-items: center; }
+.model-text { width: 50%; }
+.equation-box { background: rgba(0, 255, 204, 0.05); border: 1px solid var(--accent); padding: 1.5rem; font-family: 'Space Mono', monospace; font-size: 1.1rem; color: var(--accent); margin: 2rem 0; border-radius: 8px; text-align: center; }
+.parameter-list { list-style: none; color: #a0a0b0; }
+.parameter-list li { margin-bottom: 1rem; border-left: 2px solid #333; padding-left: 1rem; }
+.parameter-list strong { color: white; }
+
+/* The Graph Visual */
+.model-visual { width: 50%; display: flex; justify-content: center; }
+.graph-axes { position: relative; width: 100%; max-width: 500px; }
+.y-label { position: absolute; left: -20px; top: 50%; transform: rotate(-90deg) translateX(50%); font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #888; }
+.x-label { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #888; }
+.hill-curve { stroke-dasharray: 600; stroke-dashoffset: 600; }
+.operating-point { opacity: 0; transform: scale(0); transform-origin: center; }
+
+/* Parallax Solutions Section */
+.solutions-container { max-width: 1400px; margin: 0 auto; }
+.center-text { text-align: center; margin: 0 auto 4rem auto; }
+
+.parallax-track { display: flex; justify-content: space-between; gap: 2rem; padding-top: 5rem; }
+.parallax-card { 
+    background: rgba(20, 20, 25, 0.6); border: 1px solid var(--border); 
+    padding: 3rem 2rem; border-radius: 12px; width: 32%; 
+    backdrop-filter: blur(10px);
+}
+.parallax-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 1rem; color: white; }
+.card-tag { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--alert); margin-bottom: 1.5rem; letter-spacing: 1px; }
+.parallax-card p { color: #a0a0b0; font-size: 0.95rem; line-height: 1.7; }
+
+
+/* --- GLOBAL TRANSITIONS & TELEMETRY --- */
+
+/* Page Transition Loader */
+#global-transition {
+    position: fixed; inset: 0; background: #020203; z-index: 99999;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    font-family: 'Space Mono', monospace; pointer-events: auto;
+}
+.transition-text { color: var(--accent); margin-bottom: 1rem; font-size: 0.8rem; letter-spacing: 2px; }
+.transition-bar { width: 200px; height: 1px; background: #333; overflow: hidden; }
+.transition-fill { width: 0%; height: 100%; background: var(--accent); }
+
+/* Update Telemetry HUD to hold both stats */
+#os-telemetry {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 9000;
+    display: flex; gap: 2rem; pointer-events: none;
+    background: rgba(5, 5, 8, 0.85); padding: 0.8rem 1.5rem; 
+    border: 1px solid var(--border); border-radius: 4px; backdrop-filter: blur(8px);
+}
+.telemetry-stat { display: flex; flex-direction: column; align-items: flex-end; }
+.stat-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--text-muted); letter-spacing: 1px; }
+.stat-value { font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--accent); font-weight: bold; }
+.stat-value.drop { color: var(--alert); }
+
+
+/* --- ENGINEERING PAGE: HORIZONTAL SCROLL --- */
+.eng-hero { border-bottom: none; }
+
+.horizontal-section {
+    /* Hide overflow so the panels don't break the vertical scroll */
+    overflow: hidden; 
+    background: #020203;
+    /* We don't set height here; GSAP handles the pinning */
+}
+
+.horizontal-container {
     display: flex;
-    gap: 4rem;
-    align-items: center;
+    width: 300vw; /* 3 panels = 300% of viewport width */
+    height: 100vh;
 }
 
-.split-text { flex: 1; }
-.impact-list { margin-top: 2rem; list-style: none; }
-.impact-list li {
-    margin-bottom: 1.5rem;
-    padding-left: 1.5rem;
-    border-left: 4px solid var(--ashesi-red);
+.b-panel {
+    flex: 0 0 100vw; /* THIS is the magic line that makes horizontal scroll work */
+    height: 100vh;
+    padding: 0 10%;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center;
+    border-right: 1px dashed #333;
 }
 
-.split-box {
-    flex: 0.8;
-    background: var(--ashesi-red);
-    color: white;
-    padding: 4rem;
+.panel-header { display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 0.85rem; margin-bottom: 2rem; border-bottom: 1px solid #333; padding-bottom: 1rem; }
+.b-panel h2 { font-size: 4.5rem; letter-spacing: -2px; margin-bottom: 1.5rem; color: white; }
+.b-panel p { font-size: 1.3rem; line-height: 1.7; color: #a0a0b0; max-width: 800px; margin-bottom: 3rem; }
+
+.tech-data { display: flex; gap: 3rem; font-family: 'Space Mono', monospace; font-size: 0.9rem; }
+.tech-data span { padding: 0.5rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid #333; border-radius: 4px; }
+
+/* Status Colors */
+.error-panel .status { color: var(--alert); }
+.error-panel .tech-data span { border-color: rgba(255, 0, 85, 0.3); color: var(--alert); }
+
+.warn-panel .status { color: #ffaa00; }
+.warn-panel .tech-data span { border-color: rgba(255, 170, 0, 0.3); color: #ffaa00; }
+
+.success-panel .status { color: #00ffcc; }
+.success-panel .tech-data span { border-color: rgba(0, 255, 204, 0.3); color: #00ffcc; }
+
+/* Math Section */
+.math-section { padding: 8rem 5%; background: #050508; border-top: 1px solid var(--border); }
+.katex-container { font-size: 1.8rem; text-align: center; margin-top: 4rem; padding: 3rem; background: rgba(0, 255, 204, 0.03); border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 12px; }
+
+
+
+/* --- INTERACTIVE SIMULATOR STYLES --- */
+.simulator-section { padding: 5rem 10%; background: #020203; }
+.sim-container { border: 1px solid #333; border-radius: 8px; background: rgba(10, 10, 15, 0.8); padding: 2rem; font-family: 'Space Mono', monospace; }
+.sim-header { display: flex; justify-content: space-between; border-bottom: 1px dashed #333; padding-bottom: 1rem; margin-bottom: 2rem; color: var(--accent); font-size: 0.8rem; }
+
+.sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+
+/* Sliders */
+.control-group { margin-bottom: 2.5rem; position: relative; }
+.control-group label { display: block; color: white; margin-bottom: 1rem; font-size: 0.9rem; }
+.control-group label span { color: var(--accent); }
+input[type=range] { width: 100%; appearance: none; background: #222; height: 4px; border-radius: 2px; outline: none; }
+input[type=range]::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; background: var(--accent); cursor: ew-resize; border-radius: 50%; }
+.threshold-marker { position: absolute; bottom: -20px; font-size: 0.65rem; color: #666; }
+
+/* Transfer Function Bar */
+.transfer-function-output label { display: block; color: white; margin-bottom: 0.5rem; font-size: 0.8rem; }
+.progress-track { width: 100%; height: 8px; background: #222; border-radius: 4px; overflow: hidden; }
+.progress-fill { width: 0%; height: 100%; background: #39ff14; transition: width 0.1s linear; }
+
+/* Nodes */
+.sim-visuals { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.node-row { display: flex; gap: 2rem; width: 100%; justify-content: center; }
+.circuit-node { width: 100px; height: 100px; border: 2px solid #333; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s; background: #050508; }
+.node-name { color: white; font-weight: bold; font-size: 1.2rem; margin-bottom: 0.2rem; }
+.node-state { color: #666; font-size: 0.7rem; }
+
+.hexamer-connection { color: #444; font-size: 0.7rem; margin: 1.5rem 0; letter-spacing: 2px; }
+
+.output-node { width: 140px; height: 140px; border-radius: 8px; border-color: #333; }
+
+/* Active States applied via JS */
+.circuit-node.active-hrpr { border-color: #00ffcc; box-shadow: 0 0 20px rgba(0,255,204,0.3); }
+.circuit-node.active-hrpr .node-state { color: #00ffcc; }
+
+.circuit-node.active-hrps { border-color: #ff0055; box-shadow: 0 0 20px rgba(255,0,85,0.3); }
+.circuit-node.active-hrps .node-state { color: #ff0055; }
+
+.circuit-node.active-gfp { border-color: #39ff14; background: rgba(57, 255, 20, 0.1); box-shadow: 0 0 40px rgba(57,255,20,0.4); }
+.circuit-node.active-gfp .node-state { color: #39ff14; }
+
+
+/* --- HUMAN PRACTICES PAGE --- */
+
+/* Section 1: SVG Grid Collapse */
+.grid-collapse-section { min-height: 100vh; padding: 10rem 5%; display: flex; align-items: center; background: #010101; position: relative; border-bottom: 1px solid #222; }
+/* --- FIXED GRID TEXT LAYOUT --- */
+.grid-text-content { 
+    width: 45%; 
+    z-index: 10; 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* This guarantees space between the H2 and the paragraph */
 }
-.split-box h3 { font-size: 2rem; margin-bottom: 1rem; line-height: 1.2; }
+.grid-text-content h2 { 
+    font-size: 5rem; 
+    color: white; 
+    line-height: 1.1; /* Keeps the text tightly packed */
+    margin: 0; /* Clear default margins to let flex 'gap' handle spacing */
+}
+.grid-text-content p { 
+    font-size: 1.25rem; 
+    color: #d0d0e0; /* Brightened the text so the judges can actually read it */
+    line-height: 1.8; 
+}
+.svg-grid-container { width: 60%; position: absolute; right: 0; top: 50%; transform: translateY(-50%); opacity: 0.6; }
+
+/* Section 2: The 4-Hour Timeline */
+.timeline-section { background: #020203; position: relative; }
+.timeline-container { display: flex; max-width: 1400px; margin: 0 auto; }
+
+/* Left HUD (Pins via GSAP) */
+.timeline-hud { width: 30%; padding: 5rem 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: 3rem; border-right: 1px dashed #333; }
+.hud-box { padding-right: 3rem; text-align: right; }
+.hud-label { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #666; margin-bottom: 0.5rem; letter-spacing: 2px; }
+.hud-value { font-family: 'Space Mono', monospace; font-size: 3rem; color: #00ffcc; font-weight: bold; transition: color 0.3s; }
+
+/* Right Content */
+.timeline-content { width: 70%; padding: 10rem 5rem; }
+.t-event { position: relative; margin-bottom: 15rem; opacity: 0.3; transition: opacity 0.5s; }
+.t-event.active-event { opacity: 1; }
+.t-marker { position: absolute; left: -5rem; top: 0; width: 20px; height: 2px; background: #333; transition: background 0.5s, width 0.5s; }
+.t-event.active-event .t-marker { background: #ff0055; width: 40px; }
+.t-event h2 { font-size: 3rem; color: white; margin-bottom: 1rem; margin-top: 1rem; }
+.t-event p { font-size: 1.2rem; color: #a0a0b0; line-height: 1.8; max-width: 600px; }
+
+/* Section 3: Shatter Section */
+.shatter-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #010101; text-align: center; overflow: hidden; }
+#shatter-text { font-size: 6rem; color: white; margin-bottom: 2rem; }
+/* The spans generated by our JS splitter */
+.shatter-char { display: inline-block; position: relative; transform-origin: center; }
+
+/* --- DESCRIPTION PAGE: SCOLLLYTELLING --- */
+.narrative-track { 
+    display: flex; 
+    width: 100%; 
+    position: relative; 
+    background: #010101; 
+}
+
+/* Left side scrolls normally */
+.content-scroll { 
+    width: 50%; 
+    padding: 0 5%; 
+    z-index: 2; 
+}
+
+.story-panel { 
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    padding: 4rem 0; 
+}
+.story-panel p { 
+    font-size: 1.25rem; 
+    color: #a0a0b0; 
+    max-width: 600px; 
+    line-height: 1.8; 
+}
+
+/* Right side gets pinned by JS */
+.visual-pin { 
+    width: 50%; 
+    height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    position: relative; 
+}
+
+#master-svg { width: 80%; height: auto; max-width: 500px; }
+
+/* GSAP DrawSVG setup - hides lines so JS can draw them */
+.vector-path { 
+    stroke-dasharray: 2000; 
+    stroke-dashoffset: 2000; 
+}
+
+
+/* --- MEGA MENU NAVIGATION --- */
+.glass-nav { 
+    position: fixed; top: 0; left: 0; width: 100%; 
+    padding: 1rem 5%; z-index: 9999; 
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10, 10, 12, 0.8); backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-link, .drop-btn { 
+    color: #a0a0b0; background: none; border: none;
+    font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; transition: color 0.3s; padding: 0.5rem 0;
+}
+.nav-link:hover, .drop-btn:hover { color: #ffffff; }
+.drop-btn .arrow { font-size: 0.7rem; margin-left: 4px; transition: transform 0.3s; display: inline-block; }
+
+/* The Dropdown Grid */
+.nav-dropdown { position: relative; }
+/* --- FIXED MEGA MENU POSITIONING --- */
+.mega-menu {
+    position: absolute; 
+    top: 120%; 
+    /* Remove left: 50% and transformX */
+    right: 0; /* Anchor it to the right side of the button */
+    transform: translateY(10px);
+    
+    background: #111115; 
+    border: 1px solid #222; 
+    border-radius: 12px;
+    padding: 2rem; 
+    display: flex; 
+    gap: 3rem;
+    
+    opacity: 0; 
+    pointer-events: none; 
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    
+    /* Optional: Ensure it doesn't get wider than the screen on smaller laptops */
+    max-width: 90vw; 
+    white-space: nowrap; 
+}
+
+/* Update the hover state to remove the old translateX */
+.nav-dropdown:hover .mega-menu { 
+    opacity: 1; 
+    pointer-events: auto; 
+    transform: translateY(0); 
+}
+.nav-dropdown:hover .drop-btn .arrow { transform: rotate(180deg); color: var(--accent); }
+
+.menu-col { display: flex; flex-direction: column; gap: 1rem; min-width: 150px; }
+.menu-title { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #666; letter-spacing: 1px; margin-bottom: 0.5rem; }
+.menu-col a { color: #d0d0e0; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+.menu-col a:hover { color: var(--accent); }
+
+.menu-featured { background: #1a1a20; padding: 1.5rem; border-radius: 8px; width: 250px; border: 1px solid #333; }
+.featured-badge { background: white; color: black; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+.menu-featured h4 { color: white; margin: 1rem 0 0.5rem 0; font-family: 'Space Grotesk', sans-serif; }
+.menu-featured p { color: #888; font-size: 0.85rem; margin-bottom: 1.5rem; }
+.featured-link { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+
+/* --- GRAND FOOTER --- */
+.grand-footer { background: #010101; padding-top: 5rem; border-top: 1px solid #222; overflow: hidden; position: relative; }
+.footer-grid { display: flex; justify-content: space-between; max-width: 1400px; margin: 0 auto; padding: 0 5% 5rem 5%; border-bottom: 1px solid #222; }
+.footer-col { display: flex; flex-direction: column; gap: 1rem; }
+.footer-col p { color: #666; font-size: 0.9rem; max-width: 250px; }
+.footer-col span { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #555; letter-spacing: 2px; }
+.footer-col a { color: #a0a0b0; text-decoration: none; transition: color 0.3s; }
+.footer-col a:hover { color: white; }
+
+/* The Massive Text */
+.massive-year {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 25vw; /* Scales massively with the screen */
+    font-weight: 700;
+    line-height: 0.8;
+    color: #ffffff;
+    text-align: center;
+    letter-spacing: -0.05em;
+    transform: translateY(15%); /* Sinks it slightly into the bottom of the screen */
+    white-space: nowrap;
+}
+.massive-year .copyright { font-size: 15vw; vertical-align: middle; margin-right: -2vw; }
+
+
+/* --- DESCRIPTION: DEPENDENCY SCROLL --- */
+.dependency-section { display: flex; background: #030305; position: relative; }
+
+.dependency-text { width: 50%; padding: 10rem 5%; }
+.dep-block { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+.dep-num { font-family: 'Space Mono', monospace; font-size: 1.5rem; color: var(--accent); margin-bottom: 1rem; border-bottom: 1px solid var(--accent); width: fit-content; padding-bottom: 0.5rem; }
+.dep-block h2 { font-size: 3.5rem; color: white; margin-bottom: 1.5rem; line-height: 1.1; }
+.dep-block p { font-size: 1.25rem; color: #a0a0b0; max-width: 600px; line-height: 1.8; }
+
+.dependency-visual { width: 50%; height: 100vh; position: sticky; top: 0; display: flex; justify-content: center; align-items: center; }
+.web-container { position: relative; width: 500px; height: 500px; }
+
+.core-cell { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 140px; height: 140px; background: #111; border: 2px solid var(--accent); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--accent); font-family: 'Space Mono', monospace; font-size: 0.7rem; font-weight: bold; text-align: center; z-index: 10; transition: box-shadow 0.5s; }
+
+.ext-node { position: absolute; background: #222; border: 1px solid #444; color: #888; font-family: 'Space Mono', monospace; font-size: 0.7rem; padding: 10px 15px; border-radius: 4px; z-index: 5; }
+.node-cloud { top: 80px; left: 30px; }
+.node-cold { top: 80px; right: 30px; }
+.node-power { bottom: 80px; left: 30px; }
+.node-hvac { bottom: 80px; right: 30px; }
+
+.web-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+.w-line { stroke: #333; stroke-width: 2; stroke-dasharray: 5 5; }
+
+/* --- DESIGN PAGE: BLUEPRINT LAYOUT --- */
+
+/* Blueprint Grid Background */
+.blueprint-mode {
+    background-color: #020203;
+    background-image: 
+        linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.plasmid-blueprint-section { display: flex; position: relative; border-top: 1px solid #222; }
+
+/* Left Text Constraints */
+.blueprint-text { width: 45%; padding: 5rem 5% 10rem 10%; }
+.spec-module { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; opacity: 0.3; transition: opacity 0.5s; }
+.spec-module.active-spec { opacity: 1; }
+.spec-module h2 { font-size: 3.5rem; color: white; margin-bottom: 1.5rem; line-height: 1.1; }
+.spec-module p { font-size: 1.15rem; color: #a0a0b0; max-width: 550px; line-height: 1.8; margin-bottom: 2rem; }
+
+/* Technical Data Tables */
+.tech-table { width: 100%; max-width: 500px; border: 1px solid #333; border-radius: 4px; font-family: 'Space Mono', monospace; font-size: 0.85rem; }
+.t-row { display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid #333; }
+.t-row:last-child { border-bottom: none; }
+.t-row span:first-child { color: #666; letter-spacing: 1px; }
+.t-row span:last-child { color: var(--accent); }
+
+/* Right Visual Constraints */
+.blueprint-visual { width: 55%; height: 100vh; position: sticky; top: 0; display: flex; justify-content: center; align-items: center; }
+.plasmid-container { position: relative; width: 500px; height: 500px; }
+
+#plasmid-svg { width: 100%; height: 100%; transform-origin: center; }
+.plasmid-center-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; color: white; font-weight: bold; }
+.plasmid-center-text span { display: block; font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #666; letter-spacing: 2px; margin-top: 5px; }
+
+/* The Arcs */
+.p-arc { opacity: 0.1; filter: drop-shadow(0 0 0px transparent); transition: opacity 0.4s, filter 0.4s; }
+.p-arc.glow { opacity: 1; filter: drop-shadow(0 0 15px currentColor); }
+
+/* Dynamic Annotations */
+.annotation-text { position: absolute; top: 20px; right: 0; font-family: 'Space Mono', monospace; font-size: 0.9rem; color: white; background: rgba(0,0,0,0.8); padding: 5px 10px; border: 1px solid #444; }
+
+
+/* --- SAFETY PAGE: CONTAINMENT & BREACH --- */
+
+.containment-section { display: flex; position: relative; background: #010101; border-top: 1px dashed #333; }
+
+/* Left Text Constraints */
+.containment-text { width: 45%; padding: 5rem 5% 10rem 10%; }
+.sec-layer { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; opacity: 0.3; transition: opacity 0.5s; }
+.sec-layer.active-layer { opacity: 1; }
+.sec-layer h2 { font-size: 3.5rem; color: white; margin-bottom: 1.5rem; line-height: 1.1; }
+.sec-layer p { font-size: 1.15rem; color: #a0a0b0; max-width: 550px; line-height: 1.8; margin-bottom: 2rem; }
+
+/* Right Visual Constraints */
+.containment-visual { width: 55%; height: 100vh; position: sticky; top: 0; display: flex; justify-content: center; align-items: center; }
+#security-rings { width: 600px; height: 600px; }
+
+/* The Rings */
+.sec-ring { transform-origin: center; }
+.sec-lock { transform-origin: center; filter: drop-shadow(0 0 10px rgba(0,255,204,0.5)); }
+
+/* Breach Terminal Section */
+.breach-terminal-section { min-height: 100vh; background: #050002; display: flex; align-items: center; justify-content: center; padding: 5rem 5%; transition: background 0.5s; border-top: 1px solid #330011; }
+.terminal-container { border: 1px solid #ff0055; background: rgba(20, 0, 5, 0.8); padding: 3rem; border-radius: 8px; max-width: 900px; width: 100%; box-shadow: 0 0 40px rgba(255, 0, 85, 0.1); position: relative; overflow: hidden; }
+
+.terminal-header { display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 0.85rem; border-bottom: 1px dashed #ff0055; padding-bottom: 1rem; margin-bottom: 2rem; color: #ff0055; }
+.warning-text { font-weight: bold; letter-spacing: 1px; }
+
+/* Interactive Hold Button */
+.arm-mechanism { margin-top: 4rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.glitch-btn { background: transparent; color: #ff0055; border: 2px solid #ff0055; padding: 1.5rem 3rem; font-family: 'Space Mono', monospace; font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; cursor: pointer; border-radius: 4px; transition: all 0.2s; user-select: none; }
+.glitch-btn:hover { background: rgba(255, 0, 85, 0.1); box-shadow: 0 0 20px rgba(255,0,85,0.4); }
+.glitch-btn:active { transform: scale(0.98); }
+
+.progress-bar-container { width: 100%; max-width: 400px; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+#arm-fill { width: 0%; height: 100%; background: #ff0055; }
+
+/* Resolved State Classes (Applied by JS) */
+.resolved .terminal-container { border-color: #00ffcc; background: rgba(0, 20, 15, 0.8); box-shadow: 0 0 40px rgba(0, 255, 204, 0.1); }
+.resolved .terminal-header, .resolved #breach-title { color: #00ffcc !important; border-bottom-color: #00ffcc; }
+.resolved .glitch-btn { border-color: #00ffcc; color: #00ffcc; pointer-events: none; }
