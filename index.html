@@ -3,93 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ashesi iGEM | Cultured Meat</title>
+    <title>Bio-Foundry OS | Ashesi iGEM</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
-    <nav class="solid-nav">
-        <div class="nav-content">
-            <div class="logo">ASHESI <span>iGEM</span></div>
-            <div class="nav-links">
-                <a href="#problem">The Problem</a>
-                <a href="#science">The Science</a>
-                <a href="#impact">Human Practices</a>
-            </div>
-        </div>
+
+    <div id="glossary-tooltip"></div>
+
+    <nav class="glass-nav">
+        <div class="logo">ASHESI <span>iGEM_25</span></div>
     </nav>
 
-    <header id="hero">
-        <div class="container hero-grid">
-            <div class="hero-text">
-                <div class="badge fade-in">Project 2025</div>
-                <h1 class="fade-in">Cultivating Protein. <br><span class="highlight">Redefining Meat.</span></h1>
-                <p class="fade-in">We are using cellular agriculture to engineer sustainable, slaughter-free meat tailored for the African continent. High-quality protein without the environmental cost of traditional livestock.</p>
-            </div>
-            <div class="hero-visual fade-in">
-                <svg viewBox="0 0 200 200" class="cell-svg">
-                    <circle class="petri-dish" cx="100" cy="100" r="90" fill="none" stroke="#8b0000" stroke-width="4"/>
-                    <circle class="cell main-cell" cx="100" cy="100" r="25" fill="#8b0000"/>
-                    <circle class="cell split-cell-1" cx="100" cy="100" r="25" fill="#8b0000"/>
-                    <circle class="cell split-cell-2" cx="100" cy="100" r="25" fill="#8b0000"/>
-                </svg>
-            </div>
-        </div>
+    <header class="hero">
+        <div class="text-mask"><h1 class="flux-text">Engineering Life</h1></div>
+        <div class="text-mask"><h1 class="flux-text highlight">For Extreme Extremes.</h1></div>
+        <p class="subtitle fade-in">An Offline-First Bio-Foundry OS bridging deep space and deep rural infrastructures.</p>
+        <div class="scroll-prompt fade-in">INITIALIZE NARRATIVE ↓</div>
     </header>
 
-    <section id="problem" class="bg-light">
-        <div class="container text-center">
-            <h2 class="section-title scroll-up">The Protein Deficit</h2>
-            <p class="section-desc scroll-up">As population growth accelerates across West Africa, traditional livestock farming is draining our water resources and accelerating deforestation. We need a localized, scalable biomanufacturing solution to ensure future food security.</p>
-        </div>
-    </section>
+    <section class="narrative-track" id="macro-to-micro">
+        
+        <div class="content-scroll">
+            
+            <div class="story-panel" id="panel-nasa">
+                <div class="badge">01 // THE MACRO</div>
+                <div class="text-mask"><h2 class="scroll-reveal">In-Situ Resource Utilization</h2></div>
+                <p>NASA relies on <span class="glossary-term" data-def="Engineering living organisms to calculate inputs and produce outputs, bypassing the need for electronic hardware.">biological computers</span> for deep space missions. Transporting abiotic plastics to Mars imposes an insurmountable mass penalty. The solution is biological <span class="glossary-term" data-def="NASA's strategy of utilizing local environmental resources (like Martian CO2) rather than bringing supplies from Earth.">ISRU</span>: utilizing lithoautotrophic bacteria to synthesize bio-polymers offline, in the harshest environments conceivable.</p>
+            </div>
 
-    <section id="science">
-        <div class="container">
-            <h2 class="section-title scroll-up">Our Engineering Approach</h2>
-            <div class="grid-3">
+            <div class="story-panel" id="panel-earth">
+                <div class="badge">02 // THE LOCAL</div>
+                <div class="text-mask"><h2 class="scroll-reveal">The Terrestrial Translation</h2></div>
+                <p>The infrastructural vacuum of a Martian colony perfectly mirrors the logistical realities of ultra-rural West Africa. Commercial grids in Ghana experience severe <span class="glossary-term" data-def="A temporary reduction in voltage on the electrical grid, severely degrading industrial motor performance.">voltage sags</span> under 207V for 22% of their operational time. If a biological system can survive Mars, it can survive the terrestrial grid.</p>
+            </div>
+
+            <div class="story-panel" id="panel-cell">
+                <div class="badge">03 // THE MICRO</div>
+                <div class="text-mask"><h2 class="scroll-reveal">Programming the Cell</h2></div>
+                <p>We strip away the cloud and the hardware. By engineering synthetic plasmids into *E. coli*, we create orthogonal <span class="glossary-term" data-def="A genetic circuit requiring both HrpR and HrpS proteins to actuate, ensuring zero spontaneous misfires.">AND logic gates</span>. The cell itself acts as the microprocessor, calculating environmental toxicity and thermal drift natively.</p>
+            </div>
+
+        </div>
+
+        <div class="visual-pin">
+            <svg viewBox="0 0 600 600" id="master-svg">
+                <circle class="vector-path path-mars" cx="300" cy="300" r="250" fill="none" stroke="#ff0055" stroke-width="2" stroke-dasharray="20 15" />
                 
-                <div class="card scroll-up">
-                    <div class="card-number">01</div>
-                    <h3>Immortalized Cell Lines</h3>
-                    <p>We are engineering local bovine and poultry cell lines to proliferate indefinitely in suspension, removing the need for continuous animal biopsies and lowering long-term production costs.</p>
-                </div>
+                <g class="layer-earth" opacity="0">
+                    <rect class="vector-path path-grid" x="150" y="150" width="300" height="300" fill="none" stroke="#00ffcc" stroke-width="2" />
+                    <line class="vector-path path-grid" x1="300" y1="150" x2="300" y2="450" stroke="#00ffcc" stroke-width="1" />
+                    <line class="vector-path path-grid" x1="150" y1="300" x2="450" y2="300" stroke="#00ffcc" stroke-width="1" />
+                </g>
 
-                <div class="card scroll-up">
-                    <div class="card-number">02</div>
-                    <h3>Plant-Based Scaffolding</h3>
-                    <p>Cultured cells need a structure to form textured meat. We are utilizing abundant local crops like cassava and yam starch to create edible, 3D bio-printed scaffolds for the cells to attach to.</p>
-                </div>
-
-                <div class="card scroll-up">
-                    <div class="card-number">03</div>
-                    <h3>Serum-Free Media</h3>
-                    <p>Replacing controversial Fetal Bovine Serum (FBS) with a cost-effective, recombinantly produced growth media tailored specifically for our engineered cell lines.</p>
-                </div>
-
-            </div>
+                <circle class="vector-path path-micro" cx="300" cy="300" r="80" fill="none" stroke="#ffffff" stroke-width="6" opacity="0" />
+                <circle class="core-node" cx="300" cy="300" r="10" fill="#00ffcc" opacity="0" />
+            </svg>
         </div>
+
     </section>
 
-    <section id="impact" class="bg-light border-top">
-        <div class="container flex-split">
-            <div class="split-text scroll-up">
-                <h2 class="section-title text-left">Integrated Human Practices</h2>
-                <p>Technology alone cannot change diets. Our project is deeply integrated with local stakeholders to ensure cultural acceptance and economic viability.</p>
-                <ul class="impact-list">
-                    <li><strong>Farmer Integration:</strong> Exploring how traditional farmers can pivot to supplying agricultural inputs for bio-scaffolding.</li>
-                    <li><strong>Consumer Perception:</strong> Conducting comprehensive surveys across Ghana to understand the ethical and culinary acceptance of lab-grown meat.</li>
-                    <li><strong>Regulatory Frameworks:</strong> Partnering with local food safety authorities to draft the first guidelines for cellular agriculture in West Africa.</li>
-                </ul>
-            </div>
-            <div class="split-box scroll-up">
-                <h3>"Innovation must be rooted in local reality."</h3>
-                <p>- The Ashesi iGEM Philosophy</p>
-            </div>
-        </div>
-    </section>
+    <div style="height: 100vh; background: #020203;"></div>
 
     <script src="script.js"></script>
 </body>

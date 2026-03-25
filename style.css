@@ -1,168 +1,63 @@
 :root {
-    --bg-dark: #0a0a0a;
-    --bg-light: #f4f4f0;
-    --text-dark: #111111;
-    --text-light: #ffffff;
-    --ashesi-red: #8b0000;
-    --border-color: #333333;
+    --bg-dark: #020203;
+    --text-main: #f0f0f5;
+    --text-muted: #888899;
+    --accent: #00ffcc;
+    --alert: #ff0055;
+    --glass: rgba(10, 10, 15, 0.7);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
+    background: var(--bg-dark); color: var(--text-main);
+    font-family: 'Inter', sans-serif; overflow-x: hidden; line-height: 1.6;
 }
 
-h1, h2, h3, .logo, .badge, .card-number { 
-    font-family: 'Space Grotesk', sans-serif; 
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
+h1, h2 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -1.5px; }
+.badge, .logo { font-family: 'Space Mono', monospace; }
 
 /* Navigation */
-.solid-nav {
-    position: fixed;
-    top: 0; width: 100%;
-    background: var(--bg-dark);
-    border-bottom: 2px solid var(--border-color);
-    z-index: 100;
-    padding: 1.5rem 0;
+.glass-nav { position: fixed; top: 0; width: 100%; padding: 2rem 5%; z-index: 100; mix-blend-mode: difference; }
+.logo { font-size: 1.2rem; font-weight: 700; color: white; }
+.logo span { color: var(--accent); }
+
+/* --- TYPOGRAPHY EFFECTS (Framer "TextFlux" Simulation) --- */
+.text-mask { overflow: hidden; display: block; padding-bottom: 5px; }
+.flux-text { transform: translateY(110%); font-size: clamp(4rem, 8vw, 7rem); line-height: 1; }
+.highlight { color: var(--accent); }
+.scroll-reveal { transform: translateY(110%); font-size: 3.5rem; margin-bottom: 1.5rem; }
+
+/* Hero Base */
+.hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; position: relative; }
+.subtitle { font-size: 1.5rem; color: var(--text-muted); max-width: 600px; margin-top: 2rem; font-family: 'Space Mono', monospace; }
+.scroll-prompt { position: absolute; bottom: 3rem; font-family: 'Space Mono', monospace; color: var(--text-muted); font-size: 0.8rem; letter-spacing: 2px; }
+
+/* --- GLOSSARY HOVER COMPONENT --- */
+.glossary-term {
+    color: var(--accent); border-bottom: 1px dashed var(--accent);
+    cursor: help; position: relative; transition: color 0.3s;
+}
+.glossary-term:hover { color: white; border-bottom: 1px solid white; }
+
+#glossary-tooltip {
+    position: fixed; top: 0; left: 0; pointer-events: none; opacity: 0;
+    background: var(--glass); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1);
+    padding: 1rem 1.5rem; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.85rem;
+    color: white; max-width: 300px; z-index: 9999; transform: translate(-50%, -120%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: opacity 0.2s;
 }
 
-.nav-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-}
+/* --- NARRATIVE SCROLL LAYOUT --- */
+.narrative-track { display: flex; width: 100%; position: relative; }
+.content-scroll { width: 50%; padding: 0 5%; z-index: 2; }
+.story-panel { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 4rem 0; }
+.badge { color: var(--alert); border: 1px solid var(--alert); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.75rem; width: fit-content; margin-bottom: 1.5rem; }
+.story-panel p { font-size: 1.3rem; color: #a0a0b0; max-width: 600px; }
 
-.logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
-.logo span { color: var(--ashesi-red); }
+/* The Pinned Vector */
+.visual-pin { width: 50%; height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; }
+#master-svg { width: 80%; height: auto; }
 
-.nav-links a {
-    color: var(--text-light);
-    text-decoration: none;
-    margin-left: 2.5rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--ashesi-red); }
-
-/* Hero */
-#hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding-top: 80px;
-    border-bottom: 2px solid var(--border-color);
-}
-
-.hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.badge {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: var(--ashesi-red);
-    color: white;
-    font-weight: 700;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-}
-
-h1 {
-    font-size: clamp(3rem, 5vw, 4.5rem);
-    line-height: 1.05;
-    margin-bottom: 1.5rem;
-    letter-spacing: -1.5px;
-}
-
-.highlight { color: var(--ashesi-red); }
-
-.hero-text p {
-    font-size: 1.2rem;
-    color: #a0a0a0;
-    max-width: 500px;
-}
-
-/* Shared Section Styles */
-section { padding: 8rem 0; }
-.bg-light { background-color: var(--bg-light); color: var(--text-dark); }
-.border-top { border-top: 2px solid #e0e0e0; }
-
-.section-title {
-    font-size: 3rem;
-    margin-bottom: 2rem;
-    letter-spacing: -1px;
-}
-.text-left { text-align: left; }
-.section-desc { font-size: 1.25rem; max-width: 800px; margin: 0 auto; }
-
-/* Grid Cards (The Science) */
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 4rem;
-}
-
-.card {
-    border: 2px solid var(--border-color);
-    padding: 3rem 2rem;
-    transition: transform 0.2s, border-color 0.2s;
-    background: var(--bg-dark);
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    border-color: var(--ashesi-red);
-}
-
-.card-number {
-    font-size: 3rem;
-    color: var(--ashesi-red);
-    font-weight: 700;
-    margin-bottom: 1rem;
-    line-height: 1;
-}
-
-.card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-.card p { color: #a0a0a0; font-size: 0.95rem; }
-
-/* Split Section (Human Practices) */
-.flex-split {
-    display: flex;
-    gap: 4rem;
-    align-items: center;
-}
-
-.split-text { flex: 1; }
-.impact-list { margin-top: 2rem; list-style: none; }
-.impact-list li {
-    margin-bottom: 1.5rem;
-    padding-left: 1.5rem;
-    border-left: 4px solid var(--ashesi-red);
-}
-
-.split-box {
-    flex: 0.8;
-    background: var(--ashesi-red);
-    color: white;
-    padding: 4rem;
-}
-.split-box h3 { font-size: 2rem; margin-bottom: 1rem; line-height: 1.2; }
+/* DrawSVG Simulation */
+.vector-path { stroke-dasharray: 2000; stroke-dashoffset: 2000; }

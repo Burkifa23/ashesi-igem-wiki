@@ -1,35 +1,78 @@
-// Register GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-// 1. Hero Entrance
-const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-tl.fromTo(".fade-in", 
-    { y: 30, opacity: 0 }, 
-    { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, delay: 0.2 }
-);
+// 1. HERO LOAD ANIMATION (Framer TextFlux Simulation)
+const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+tl.to(".flux-text", { y: "0%", duration: 1.2, stagger: 0.2, delay: 0.2 })
+  .fromTo(".fade-in", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, stagger: 0.2 }, "-=0.5");
 
-// 2. Cell Division SVG Animation (Looping)
-const cellTl = gsap.timeline({ repeat: -1, yoyo: true, ease: "power1.inOut" });
+// 2. HOVER GLOSSARY MECHANICS (Framer Hover/Focus Component)
+const tooltip = document.getElementById('glossary-tooltip');
+const terms = document.querySelectorAll('.glossary-term');
 
-// Make the main cell slowly split into two
-cellTl.to(".split-cell-1", { x: -30, duration: 2 })
-      .to(".split-cell-2", { x: 30, duration: 2 }, "<")
-      .to(".main-cell", { scale: 0, opacity: 0, duration: 1 }, "-=1.5");
-
-// 3. Scroll Reveal Animations
-gsap.utils.toArray('.scroll-up').forEach(element => {
-    gsap.fromTo(element, 
-        { y: 40, opacity: 0 },
-        {
-            y: 0, 
-            opacity: 1,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: element,
-                start: "top 85%", // Triggers when the top of the element hits 85% of viewport
-                toggleActions: "play none none reverse"
-            }
-        }
-    );
+// Move tooltip with mouse
+document.addEventListener('mousemove', (e) => {
+    gsap.to(tooltip, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "none" });
 });
+
+terms.forEach(term => {
+    term.addEventListener('mouseenter', () => {
+        tooltip.innerText = term.getAttribute('data-def');
+        gsap.to(tooltip, { opacity: 1, duration: 0.2 });
+        // Dim the rest of the text slightly to focus on the term
+        gsap.to('p', { color: 'rgba(160, 160, 176, 0.4)', duration: 0.3 });
+        gsap.to(term, { color: '#ffffff', duration: 0.3 });
+    });
+    term.addEventListener('mouseleave', () => {
+        gsap.to(tooltip, { opacity: 0, duration: 0.2 });
+        gsap.to('p', { color: '#a0a0b0', duration: 0.3 });
+        gsap.to(term, { color: '#00ffcc', duration: 0.3 });
+    });
+});
+
+// 3. NARRATIVE SPATIAL CONTINUITY (String-Tune Progress + DrawSVG Simulation)
+
+// Pin the right column
+ScrollTrigger.create({
+    trigger: ".narrative-track",
+    start: "top top",
+    end: "bottom bottom",
+    pin: ".visual-pin"
+});
+
+// Unveil Headers on scroll (TextFlux ScrollReveal)
+gsap.utils.toArray('.story-panel').forEach(panel => {
+    const header = panel.querySelector('.scroll-reveal');
+    gsap.to(header, {
+        scrollTrigger: {
+            trigger: panel,
+            start: "top 75%",
+            toggleActions: "play none none reverse"
+        },
+        y: "0%",
+        duration: 0.8,
+        ease: "power3.out"
+    });
+});
+
+// The Master SVG Timeline (Tied to scrollbar)
+// Panel 1: Draw the Mars Ring
+gsap.to(".path-mars", {
+    scrollTrigger: { trigger: "#panel-nasa", start: "top center", end: "bottom center", scrub: 1 },
+    strokeDashoffset: 0
+});
+
+// Panel 1 -> 2: Shrink Mars, Reveal Earth Grid
+const tlEarth = gsap.timeline({
+    scrollTrigger: { trigger: "#panel-earth", start: "top 80%", end: "center center", scrub: 1 }
+});
+tlEarth.to(".path-mars", { scale: 0.2, opacity: 0, transformOrigin: "center center" })
+       .to(".layer-earth", { opacity: 1 }, "<")
+       .to(".path-grid", { strokeDashoffset: 0, stagger: 0.1 }, "<");
+
+// Panel 2 -> 3: Morph to Cell
+const tlMicro = gsap.timeline({
+    scrollTrigger: { trigger: "#panel-cell", start: "top 80%", end: "center center", scrub: 1 }
+});
+tlMicro.to(".layer-earth", { scale: 2, opacity: 0, rotation: 45, transformOrigin: "center center" })
+       .to(".path-micro", { opacity: 1, strokeDashoffset: 0 }, "<")
+       .to(".core-node", { opacity: 1, scale: 1.5, transformOrigin: "center" }, "-=0.2");
