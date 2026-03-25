@@ -100,26 +100,22 @@ if (fluxTexts.length > 0) {
       .fromTo(".fade-in", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, stagger: 0.2 }, "-=0.5");
 }
 
-// Unveil Headers on scroll (TextFlux ScrollReveal)
-const storyPanels = gsap.utils.toArray('.story-panel');
-if (storyPanels.length > 0) {
-    storyPanels.forEach(panel => {
-        const header = panel.querySelector('.scroll-reveal');
-        if (header) {
-            gsap.to(header, {
-                scrollTrigger: {
-                    trigger: panel,
-                    start: "top 75%",
-                    toggleActions: "play none none reverse"
-                },
-                y: "0%",
-                duration: 0.8,
-                ease: "power3.out"
-            });
-        }
+// UNIVERSAL Scroll Reveal (Fixed)
+const scrollReveals = gsap.utils.toArray('.scroll-reveal');
+if (scrollReveals.length > 0) {
+    scrollReveals.forEach(header => {
+        gsap.to(header, {
+            scrollTrigger: {
+                trigger: header.parentElement, // Triggers based on its own wrapper
+                start: "top 85%", 
+                toggleActions: "play none none reverse"
+            },
+            y: "0%",
+            duration: 0.8,
+            ease: "power3.out"
+        });
     });
 }
-
 
 // ==========================================
 // 2. ENGINEERING PAGE LOGIC
@@ -474,4 +470,119 @@ if (nodeA && nodeB && nodeOut) {
         }
         evaluateGate();
     });
+}
+
+
+// ==========================================
+// 4. HUMAN PRACTICES PAGE LOGIC
+// ==========================================
+
+const hpGridSection = document.querySelector('.grid-collapse-section');
+
+if (hpGridSection) {
+    
+    // --- A. THE MACRO: SVG GRID COLLAPSE ---
+    // As the user scrolls, the power lines lose power (turn red) and dashed lines separate (break)
+    const gridTl = gsap.timeline({
+        scrollTrigger: {
+            trigger: ".grid-collapse-section",
+            start: "top top",
+            end: "bottom center",
+            scrub: 1
+        }
+    });
+
+    gridTl.to(".power-line", { stroke: "#ff0055", duration: 1 })
+          .to(".grid-node", { fill: "#ff0055", duration: 1 }, "<")
+          .to(".power-line", { strokeDasharray: "5 20", duration: 1 }, "+=0.2")
+          .to(".grid-node", { scale: 0.5, opacity: 0.2, duration: 1 }, "<");
+
+
+    // --- B. THE MICRO: TIMELINE HUD METRICS ---
+    // Pin the HUD on the left while the right side scrolls
+    ScrollTrigger.create({
+        trigger: ".timeline-section",
+        start: "top top",
+        end: "bottom bottom",
+        pin: ".timeline-hud"
+    });
+
+    const tO2 = document.getElementById('t-o2');
+    const tPh = document.getElementById('t-ph');
+    const tClock = document.getElementById('t-clock');
+
+    // Tie the biological metrics directly to scroll progress
+    ScrollTrigger.create({
+        trigger: ".timeline-content",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+        onUpdate: (self) => {
+            const p = self.progress; // Goes from 0.0 to 1.0
+
+            // 1. Oxygen drops from 30% to 0% rapidly (exponential decay sim)
+            let o2Val = Math.max(0, 30 - (p * 150)); 
+            tO2.innerText = o2Val.toFixed(1) + "%";
+            tO2.style.color = o2Val < 5 ? "#ff0055" : "#00ffcc";
+
+            // 2. pH drops from 7.00 to 4.00 slowly
+            let phVal = 7.00 - (p * 3.00);
+            tPh.innerText = phVal.toFixed(2);
+            tPh.style.color = phVal < 5.0 ? "#ff0055" : (phVal < 6.0 ? "#ffaa00" : "#00ffcc");
+
+            // 3. Fake Clock 00:00:00 to 04:00:00
+            let totalSeconds = Math.floor(p * 14400); // 4 hours = 14400 secs
+            let h = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
+            let m = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+            let s = (totalSeconds % 60).toString().padStart(2, '0');
+            tClock.innerText = `${h}:${m}:${s}`;
+        }
+    });
+
+    // Highlight the active event as it hits the center of the screen
+    gsap.utils.toArray('.t-event').forEach(event => {
+        ScrollTrigger.create({
+            trigger: event,
+            start: "top 60%",
+            end: "bottom 40%",
+            toggleClass: "active-event"
+        });
+    });
+
+
+    // --- C. THE FENTON REACTION (TEXT SHATTER) ---
+    // Since we can't use Club GSAP's SplitText, we build a quick vanilla JS text splitter
+    const shatterText = document.getElementById('shatter-text');
+    if (shatterText) {
+        const textContent = shatterText.innerText;
+        shatterText.innerHTML = '';
+        
+        // Wrap every character in a span
+        textContent.split('').forEach(char => {
+            const span = document.createElement('span');
+            span.innerText = char === ' ' ? '\u00A0' : char;
+            span.classList.add('shatter-char');
+            shatterText.appendChild(span);
+        });
+
+        const chars = document.querySelectorAll('.shatter-char');
+
+        // The violent shatter animation triggered when scrolling into the section
+        gsap.to(chars, {
+            scrollTrigger: {
+                trigger: ".shatter-section",
+                start: "top 40%", // Triggers right when they read "Grid Restored"
+                toggleActions: "play none none reverse"
+            },
+            // Randomize the explosion of the letters
+            x: () => gsap.utils.random(-400, 400),
+            y: () => gsap.utils.random(-400, 400),
+            rotationZ: () => gsap.utils.random(-360, 360),
+            opacity: 0,
+            color: "#ff0055", // Flash red as they die
+            duration: 1.5,
+            ease: "expo.out",
+            stagger: { amount: 0.5, from: "center" } // Explodes from the middle out
+        });
+    }
 }
