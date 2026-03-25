@@ -317,6 +317,53 @@ if (narrativeTrack) {
            .to(".core-node", { opacity: 1, scale: 1.5, transformOrigin: "center" }, "-=0.2");
 }
 
+if (narrativeTrack) {
+    // 1. Pin the right column so it sticks to the screen while reading
+    ScrollTrigger.create({
+        trigger: ".narrative-track",
+        start: "top top",
+        end: "bottom bottom",
+        pin: ".visual-pin"
+    });
+
+    // 2. Panel 1 (NASA): Draw the Mars Ring tied to the scrollbar
+    gsap.to(".path-mars", {
+        scrollTrigger: { 
+            trigger: "#panel-nasa", 
+            start: "top center", 
+            end: "bottom center", 
+            scrub: 1 // Links animation directly to scroll speed
+        },
+        strokeDashoffset: 0
+    });
+
+    // 3. Panel 1 -> 2: Shrink Mars, Draw Earth Grid
+    const tlEarth = gsap.timeline({
+        scrollTrigger: { 
+            trigger: "#panel-earth", 
+            start: "top 80%", 
+            end: "center center", 
+            scrub: 1 
+        }
+    });
+    tlEarth.to(".path-mars", { scale: 0.2, opacity: 0, transformOrigin: "center center" })
+           .to(".layer-earth", { opacity: 1 }, "<")
+           .to(".path-grid", { strokeDashoffset: 0, stagger: 0.1 }, "<");
+
+    // 4. Panel 2 -> 3: Earth Grid collapses into Biological Plasmid Cell
+    const tlMicro = gsap.timeline({
+        scrollTrigger: { 
+            trigger: "#panel-cell", 
+            start: "top 80%", 
+            end: "center center", 
+            scrub: 1 
+        }
+    });
+    tlMicro.to(".layer-earth", { scale: 2, opacity: 0, rotation: 45, transformOrigin: "center center" })
+           .to(".path-micro", { opacity: 1, strokeDashoffset: 0 }, "<")
+           .to(".core-node", { opacity: 1, scale: 1.5, transformOrigin: "center" }, "-=0.2");
+}
+
 // --- 9. INFRASTRUCTURE STRESS TEST (Home Page) ---
 const stressSection = document.querySelector('.stress-section');
 const velocityGrid = document.querySelector('.velocity-grid');
@@ -586,3 +633,5 @@ if (hpGridSection) {
         });
     }
 }
+
+

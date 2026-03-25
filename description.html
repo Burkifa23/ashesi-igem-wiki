@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Description | Bio-Foundry OS</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+</head>
+<body>
+
+    <div id="os-cursor"></div>
+    <div id="os-cursor-trail"></div>
+
+    <div id="global-transition">
+        <div class="transition-text">ROUTING <span class="blink">...</span></div>
+        <div class="transition-bar"><div class="transition-fill"></div></div>
+    </div>
+
+    <div id="os-telemetry">
+        <div class="telemetry-stat">
+            <span class="stat-label">SCROLL</span>
+            <span id="scroll-percent" class="stat-value">00%</span>
+        </div>
+        <div class="telemetry-stat">
+            <span class="stat-label">SYS.FPS</span>
+            <span id="fps-counter" class="stat-value">60</span>
+        </div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="logo">ASHESI <span>iGEM_26</span></div>
+        
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            
+            <div class="nav-dropdown">
+                <button class="drop-btn">Project <span class="arrow">↓</span></button>
+                <div class="mega-menu">
+                    <div class="menu-col">
+                        <span class="menu-title">CONCEPT</span>
+                        <a href="description.html">Description</a>
+                        <a href="#">Design</a>
+                        <a href="#">Safety</a>
+                    </div>
+                    <div class="menu-col">
+                        <span class="menu-title">PEOPLE</span>
+                        <a href="human-practices.html">Human Practices</a>
+                        <a href="#">Team</a>
+                        <a href="#">Attributions</a>
+                    </div>
+                    <div class="menu-featured">
+                        <span class="featured-badge">Core Engine</span>
+                        <h4>Bio-Foundry OS</h4>
+                        <p>Explore the autonomous logic gates.</p>
+                        <a href="engineering.html" class="featured-link">View Engineering →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <button class="drop-btn">Wetlab <span class="arrow">↓</span></button>
+                <div class="mega-menu">
+                    <div class="menu-col">
+                        <span class="menu-title">DATA</span>
+                        <a href="engineering.html">Engineering</a>
+                        <a href="#">Parts Registry</a>
+                        <a href="#">Results</a>
+                    </div>
+                    <div class="menu-col">
+                        <span class="menu-title">DOCUMENTATION</span>
+                        <a href="#">Notebook</a>
+                        <a href="#">Protocols</a>
+                        <a href="#">Measurement</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero desc-hero">
+        <div class="badge fade-in" style="border-color: var(--accent); color: var(--accent);">THESIS & DESCRIPTION</div>
+        <div class="text-mask"><h1 class="flux-text">The Fragility of</h1></div>
+        <div class="text-mask"><h1 class="flux-text highlight">The Status Quo.</h1></div>
+        <p class="subtitle fade-in">Why standard biomanufacturing fails at the extreme edges of infrastructure, and how we engineer around it.</p>
+    </header>
+
+    <section class="dependency-section">
+        <div class="dependency-text">
+            <div class="dep-block" id="dep-1">
+                <span class="dep-num">01</span>
+                <h2>The Supply Chain Illusion</h2>
+                <p>Modern biomanufacturing operates on a dangerous assumption: infinite logistical stability. The synthesis of complex bio-compounds relies on uninterrupted cold-chain transport, pristine cloud-based monitoring, and perfectly regulated environments.</p>
+            </div>
+            
+            <div class="dep-block" id="dep-2">
+                <span class="dep-num">02</span>
+                <h2>The Points of Failure</h2>
+                <p>When deployed in deep rural contexts (like West Africa) or deep space (NASA ISRU), this web breaks. Cloud telemetry drops. Reagent supply lines sever. A 4-hour voltage sag destroys the thermal regulation, killing the batch and rendering the mechanical hardware useless.</p>
+            </div>
+
+            <div class="dep-block" id="dep-3">
+                <span class="dep-num">03</span>
+                <h2>The Autonomous Core</h2>
+                <p>The Bio-Foundry OS strips away the external dependencies. We collapse the entire monitoring, computing, and actuation supply chain into the plasmid itself. The cell becomes a completely closed, offline-first system capable of environmental computation.</p>
+            </div>
+        </div>
+
+        <div class="dependency-visual">
+            <div class="web-container">
+                <div class="core-cell">Bio-Foundry OS</div>
+                
+                <div class="ext-node node-cloud">Cloud Telemetry</div>
+                <div class="ext-node node-cold">Cold-Chain Logistics</div>
+                <div class="ext-node node-power">Constant Voltage</div>
+                <div class="ext-node node-hvac">HVAC Regulation</div>
+
+                <svg class="web-lines" viewBox="0 0 500 500">
+                    <line class="w-line" x1="250" y1="250" x2="100" y2="100" />
+                    <line class="w-line" x1="250" y1="250" x2="400" y2="100" />
+                    <line class="w-line" x1="250" y1="250" x2="100" y2="400" />
+                    <line class="w-line" x1="250" y1="250" x2="400" y2="400" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-footer" style="padding: 10rem 5%; text-align: center; background: #020203; border-top: 1px dashed #333;">
+        <div class="badge" style="margin: 0 auto 2rem auto;">VISION ESTABLISHED</div>
+        <h2 style="font-size: 3rem; margin-bottom: 2rem;">The Engineering Process.</h2>
+        <a href="engineering.html" class="nav-link" style="display: inline-block; padding: 1rem 3rem; border: 1px solid #00ffcc; color: #00ffcc; text-decoration: none; font-family: 'Space Mono', monospace; transition: background 0.3s;">
+            PROCEED TO BUILD-TEST-LEARN ↗
+        </a>
+    </section>
+
+    <footer class="grand-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">ASHESI <span>iGEM_26</span></div>
+                <p>Building offline-first biological infrastructure.</p>
+            </div>
+            <div class="footer-col">
+                <span>INDEX</span>
+                <a href="description.html">Description</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="human-practices.html">Human Practices</a>
+            </div>
+            <div class="footer-col">
+                <span>SYSTEM</span>
+                <a href="#">Parts Registry</a>
+                <a href="#">Safety Failsafes</a>
+                <a href="#">Source Code</a>
+            </div>
+        </div>
+        
+        <div class="massive-year">
+            iGEM
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
