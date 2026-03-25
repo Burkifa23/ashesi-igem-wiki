@@ -548,3 +548,47 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 16px; height:
 
 .web-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 .w-line { stroke: #333; stroke-width: 2; stroke-dasharray: 5 5; }
+
+/* --- DESIGN PAGE: BLUEPRINT LAYOUT --- */
+
+/* Blueprint Grid Background */
+.blueprint-mode {
+    background-color: #020203;
+    background-image: 
+        linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.plasmid-blueprint-section { display: flex; position: relative; border-top: 1px solid #222; }
+
+/* Left Text Constraints */
+.blueprint-text { width: 45%; padding: 5rem 5% 10rem 10%; }
+.spec-module { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; opacity: 0.3; transition: opacity 0.5s; }
+.spec-module.active-spec { opacity: 1; }
+.spec-module h2 { font-size: 3.5rem; color: white; margin-bottom: 1.5rem; line-height: 1.1; }
+.spec-module p { font-size: 1.15rem; color: #a0a0b0; max-width: 550px; line-height: 1.8; margin-bottom: 2rem; }
+
+/* Technical Data Tables */
+.tech-table { width: 100%; max-width: 500px; border: 1px solid #333; border-radius: 4px; font-family: 'Space Mono', monospace; font-size: 0.85rem; }
+.t-row { display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid #333; }
+.t-row:last-child { border-bottom: none; }
+.t-row span:first-child { color: #666; letter-spacing: 1px; }
+.t-row span:last-child { color: var(--accent); }
+
+/* Right Visual Constraints */
+.blueprint-visual { width: 55%; height: 100vh; position: sticky; top: 0; display: flex; justify-content: center; align-items: center; }
+.plasmid-container { position: relative; width: 500px; height: 500px; }
+
+#plasmid-svg { width: 100%; height: 100%; transform-origin: center; }
+.plasmid-center-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; color: white; font-weight: bold; }
+.plasmid-center-text span { display: block; font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #666; letter-spacing: 2px; margin-top: 5px; }
+
+/* The Arcs */
+.p-arc { opacity: 0.1; filter: drop-shadow(0 0 0px transparent); transition: opacity 0.4s, filter 0.4s; }
+.p-arc.glow { opacity: 1; filter: drop-shadow(0 0 15px currentColor); }
+
+/* Dynamic Annotations */
+.annotation-text { position: absolute; top: 20px; right: 0; font-family: 'Space Mono', monospace; font-size: 0.9rem; color: white; background: rgba(0,0,0,0.8); padding: 5px 10px; border: 1px solid #444; }
+
+

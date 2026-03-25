@@ -635,3 +635,56 @@ if (hpGridSection) {
 }
 
 
+
+
+// ==========================================
+// Y. DESIGN PAGE: PLASMID BLUEPRINT LOGIC
+// ==========================================
+const blueprintSection = document.querySelector('.plasmid-blueprint-section');
+
+if (blueprintSection) {
+    const plasmidSvg = document.getElementById('plasmid-svg');
+    const annoText = document.getElementById('anno-text');
+    
+    // Arrays matching the text sections to their respective SVG arcs and rotations
+    const modules = [
+        { id: '#mod-sensor', arc: '#arc-sensor', rot: 0, label: 'P_htpG + P_arsR' },
+        { id: '#mod-processor', arc: '#arc-processor', rot: -90, label: 'hrpR + hrpS' },
+        { id: '#mod-actuator', arc: '#arc-actuator', rot: -180, label: 'GFP Reporter' }
+    ];
+
+    modules.forEach((mod, index) => {
+        ScrollTrigger.create({
+            trigger: mod.id,
+            start: "top 50%",
+            end: "bottom 50%",
+            onEnter: () => activateModule(mod),
+            onEnterBack: () => activateModule(mod),
+            toggleClass: "active-spec" // Brightens the text on the left
+        });
+    });
+
+    function activateModule(mod) {
+        // 1. Dim all arcs
+        document.querySelectorAll('.p-arc').forEach(arc => arc.classList.remove('glow'));
+        
+        // 2. Illuminate the active arc
+        document.querySelector(mod.arc).classList.add('glow');
+        
+        // 3. Rotate the entire plasmid to bring the active arc to the top right
+        gsap.to(plasmidSvg, {
+            rotation: mod.rot,
+            duration: 1,
+            ease: "power3.out"
+        });
+
+        // 4. Update the technical terminal text
+        annoText.innerText = `LOCUS: ${mod.label}`;
+        
+        // Glitch effect on text change
+        gsap.fromTo(annoText, 
+            { opacity: 0, x: 20 }, 
+            { opacity: 1, x: 0, duration: 0.3, ease: "steps(4)" }
+        );
+    }
+}
