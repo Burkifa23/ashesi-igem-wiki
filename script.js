@@ -150,3 +150,96 @@ gsap.from(".data-card", {
     stagger: 0.15,
     ease: "power3.out"
 });
+
+
+// --- PHASE 3: WETLAB MAGNETIC LOGIC GATES ---
+
+const wrappers = document.querySelectorAll('.magnetic-wrapper');
+const nodeA = document.getElementById('node-a');
+const nodeB = document.getElementById('node-b');
+const nodeOut = document.getElementById('node-out');
+const lineA = document.getElementById('line-a');
+const lineB = document.getElementById('line-b');
+
+// 1. StringMagnetic & StringImpulse Simulation
+wrappers.forEach(wrapper => {
+    const node = wrapper.querySelector('.node');
+    
+    // Magnetic Pull
+    wrapper.addEventListener('mousemove', (e) => {
+        const rect = wrapper.getBoundingClientRect();
+        // Calculate distance from center of the wrapper
+        const x = e.clientX - (rect.left + rect.width / 2);
+        const y = e.clientY - (rect.top + rect.height / 2);
+        
+        // Move the inner node towards the cursor (strength: 0.4)
+        gsap.to(node, {
+            x: x * 0.4,
+            y: y * 0.4,
+            duration: 0.4,
+            ease: "power2.out"
+        });
+    });
+
+    // Impulse Snap-Back
+    wrapper.addEventListener('mouseleave', () => {
+        gsap.to(node, {
+            x: 0,
+            y: 0,
+            duration: 0.8,
+            ease: "elastic.out(1, 0.3)" // Highly springy, mechanical snap
+        });
+    });
+});
+
+// 2. The Biological Logic Gate (AND Evaluation)
+const evaluateGate = () => {
+    let stateA = nodeA.getAttribute('data-state') === '1';
+    let stateB = nodeB.getAttribute('data-state') === '1';
+
+    // If AND gate is TRUE
+    if (stateA && stateB) {
+        nodeOut.classList.add('active');
+        nodeOut.querySelector('.node-val').innerText = 'GFP: ON';
+        gsap.to([lineA, lineB], { stroke: "#39ff14", duration: 0.3 }); // Glow lines green
+        gsap.to(nodeOut, { scale: 1.1, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+    } else {
+        nodeOut.classList.remove('active');
+        nodeOut.querySelector('.node-val').innerText = 'GFP: OFF';
+        gsap.to([lineA, lineB], { stroke: "#333", duration: 0.3 });
+        gsap.to(nodeOut, { scale: 1, duration: 0.3 });
+    }
+};
+
+// 3. Click Handlers for Inputs
+document.getElementById('node-a').parentElement.addEventListener('click', () => {
+    let currentState = nodeA.getAttribute('data-state');
+    if (currentState === '0') {
+        nodeA.setAttribute('data-state', '1');
+        nodeA.classList.add('active');
+        nodeA.querySelector('.node-val').innerText = 'ARSENIC: 1';
+        gsap.to(lineA, { stroke: "#00ffcc", duration: 0.3 });
+    } else {
+        nodeA.setAttribute('data-state', '0');
+        nodeA.classList.remove('active');
+        nodeA.querySelector('.node-val').innerText = 'ARSENIC: 0';
+        gsap.to(lineA, { stroke: "#333", duration: 0.3 });
+    }
+    evaluateGate();
+});
+
+document.getElementById('node-b').parentElement.addEventListener('click', () => {
+    let currentState = nodeB.getAttribute('data-state');
+    if (currentState === '0') {
+        nodeB.setAttribute('data-state', '1');
+        nodeB.classList.add('active');
+        nodeB.querySelector('.node-val').innerText = 'HEAT: 1';
+        gsap.to(lineB, { stroke: "#00ffcc", duration: 0.3 });
+    } else {
+        nodeB.setAttribute('data-state', '0');
+        nodeB.classList.remove('active');
+        nodeB.querySelector('.node-val').innerText = 'HEAT: 0';
+        gsap.to(lineB, { stroke: "#333", duration: 0.3 });
+    }
+    evaluateGate();
+});

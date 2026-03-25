@@ -114,3 +114,53 @@ h1, h2 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -1.5px; }
 .data-value { font-family: 'Space Grotesk', sans-serif; font-size: 4rem; color: var(--text-main); line-height: 1; margin-bottom: 1rem; letter-spacing: -2px; }
 .data-label { font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--alert); margin-bottom: 1rem; letter-spacing: 1px; }
 .data-card p { font-size: 0.95rem; color: #a0a0b0; line-height: 1.7; }
+
+
+/* --- PHASE 3: WETLAB LOGIC STYLES --- */
+.logic-section {
+    min-height: 100vh; padding: 8rem 5%; background-color: #030305;
+    border-top: 1px solid var(--border);
+}
+
+.logic-container {
+    display: flex; max-width: 1400px; margin: 0 auto; gap: 4rem;
+}
+
+.logic-text { width: 45%; }
+.spec-block { margin-top: 3rem; border-left: 2px solid var(--border); padding-left: 1.5rem; transition: border-color 0.3s; }
+.spec-block:hover { border-color: var(--accent); }
+.spec-block h3 { font-family: 'Space Mono', monospace; font-size: 1.1rem; color: white; margin-bottom: 0.5rem; }
+.spec-block p { font-size: 0.95rem; color: #a0a0b0; }
+
+/* The Interactive Workspace */
+.logic-workspace { width: 55%; background: rgba(10, 10, 15, 0.5); border: 1px solid var(--border); border-radius: 12px; position: relative; display: flex; flex-direction: column; }
+.workspace-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); padding: 1rem; border-bottom: 1px solid var(--border); letter-spacing: 2px; }
+
+.circuit-board { flex: 1; position: relative; overflow: hidden; min-height: 500px; }
+.circuit-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+/* Node Mechanics */
+.magnetic-wrapper { position: absolute; width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; z-index: 10; }
+.output-wrapper { position: absolute; width: 120px; height: 120px; display: flex; justify-content: center; align-items: center; z-index: 5; }
+
+.node {
+    width: 80px; height: 80px; border-radius: 50%; background: var(--bg-dark);
+    border: 2px solid var(--border); display: flex; flex-direction: column; justify-content: center; align-items: center;
+    cursor: pointer; transition: background 0.3s, box-shadow 0.3s;
+    /* This prevents the text from messing up the hover hitboxes */
+    user-select: none; pointer-events: none; 
+}
+
+/* We re-enable pointer events on the wrapper to catch the mouse cleanly */
+.magnetic-wrapper { pointer-events: auto; }
+
+.node-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; color: white; font-weight: bold; }
+.node-val { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--text-muted); margin-top: 4px; }
+
+/* Active States */
+.input-node.active { border-color: var(--accent); background: rgba(0, 255, 204, 0.1); box-shadow: 0 0 20px rgba(0,255,204,0.2); }
+.input-node.active .node-val { color: var(--accent); }
+
+.output-node.active { border-color: #39ff14; background: rgba(57, 255, 20, 0.15); box-shadow: 0 0 40px rgba(57,255,20,0.4); }
+.output-node.active .node-title { color: #39ff14; }
+.output-node.active .node-val { color: #39ff14; }
